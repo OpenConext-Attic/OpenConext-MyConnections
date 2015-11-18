@@ -1,0 +1,35 @@
+{
+  "name": "orcid",
+  "version": "1.0.0",
+  "description": "ORCID Attribute Aggregation",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mroest/orcid.git"
+  },
+  "keywords": [
+    "orcid"
+  ],
+  "author": "Martin Roest",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mroest/orcid/issues"
+  },
+  "homepage": "https://github.com/mroest/orcid#readme",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "0.1.13",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-uglify": "~0.5.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-sass": "^1.1.0",
+    "load-grunt-tasks": "^3.3.0"
+  },
+  "dependencies": {
+    "css-toggle-switch": "^3.2.0"
+  }
+}

@@ -1,0 +1,70 @@
+// brand colors (http://name-of-color.com/)
+$black: #000;
+$white: #fff;
+$gray:#707173;
+$blue:#4db2cf;
+$red:#e9292c;
+
+
+// base variables
+$base-text-color: $black;
+$base-background-color: #EFEFEE;
+$base-link-color: $blue;
+
+$base-font-size: 14px;
+$base-line-height: 1.0;
+$base-font-family: 'Open Sans', 'Times New Roman', Times, serif;
+$font-face-sans-serif: Arial, Helvetica, sans-serif;
+$base-text-interval: ($base-font-size * $base-line-height);
+
+$base-min-width: 320px;
+
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  color: $base-text-color;
+  background: $base-background-color;
+  font:300 #{$base-font-size}/#{$base-line-height} $base-font-family;
+  min-width: $base-min-width;
+  -webkit-text-size-adjust:100%;
+  -ms-text-size-adjust:none;
+}
+
+* {max-height: 1000000px;}
+
+article, aside, details, figcaption, figure, footer, header, main, nav, section, summary {
+  display: block;
+}
+
+img {
+  border-style: none;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+  color: $base-link-color;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+h1, h2, h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0px;
+  padding: 0 0 10px;
+}
+
+p {
+  margin: 0;
+  padding: 5px 0 10px;
+}

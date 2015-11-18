@@ -1,0 +1,150 @@
+$mq-breakpoints: (
+        mobile:  320px,
+        tablet:  740px,
+        desktop: 980px,
+        wide:    1300px
+);
+
+// Open Sans fonts
+@import "fonts/variables";
+@import "fonts/mixins";
+@import "fonts/Light";
+@import "fonts/LightItalic";
+@import "fonts/Regular";
+@import "fonts/Italic";
+@import "fonts/Semibold";
+@import "fonts/SemiboldItalic";
+@import "fonts/Bold";
+@import "fonts/BoldItalic";
+@import "fonts/ExtraBold";
+@import "fonts/ExtraBoldItalic";
+
+//  Breakpoints
+@import "mq/mq";
+
+// Handy mixins
+@import "mixins";
+
+// Custom
+@import "base";
+
+nav {
+  display: block;
+  height: 50px;
+  background-color: $blue;
+  font-weight: 600;
+  color: $white;
+  ul {
+    @extend %listreset;
+    li {
+      display: inline-block;
+      padding: 17px 17px 17px 25px;
+    }
+  }
+}
+
+.header-container {
+  background-color: $white;
+}
+
+div.header {
+  display: block;
+  position: relative;
+  @extend %clearfix;
+
+  & > div {
+    display: block;
+    float: left;
+    font-weight: 400;
+    font-size: 12px;
+  }
+
+  .logo {
+    padding: 10px 0px 10px 25px;
+    width: 160px;
+  }
+  .page-title,
+  .page-buttons {
+    display: inline-block;
+    padding-top: 24px;
+    padding-bottom: 10px;
+  }
+
+  .page-title {
+    margin-left: 20px;
+  }
+
+  .page-buttons {
+    text-align: right;
+    float: right;
+    padding-right: 25px;
+  }
+
+  div.language {
+    @extend %clearfix;
+    width: 62px;
+  }
+
+  div.language,
+  div.loginname,
+  div.help,
+  div.logout {
+    display: block;
+    float: right;
+    margin-left: 30px;
+  }
+
+  .switch-toggle {
+    top: -6px;
+    background-color: rgba(0,0,0,0.20);
+    text-shadow: none;
+    box-shadow: none;
+    color: $blue;
+  }
+
+  .switch-candy label {
+    color: $blue;
+    text-shadow: none;
+  }
+
+  .switch-candy input:checked + label {
+    color: $white;
+    text-shadow: none;
+    background-color: $blue;
+    @include border-radius(3px);
+  }
+
+  .switch-candy {
+    text-shadow: none;
+    box-shadow: none;
+    font-weight: normal;
+    a {
+      border: none;
+      box-shadow: none;
+      background-color: $blue;
+    }
+  }
+}
+
+div.page-container {
+  padding: 25px;
+
+  div.content {
+    @include border-radius(4px);
+    @include box-shadow(0px, 0px, 8px, rgba(0,0,0,0.20));
+    background-color: $white;
+
+    .content-title {
+      font-weight: 600;
+      font-size: 16px;
+    }
+  }
+}
+
+.row {
+  padding: 15px 15px 10px;
+}
+
+.border-top {
+  border-top: 1px solid $base-background-color;
+}
