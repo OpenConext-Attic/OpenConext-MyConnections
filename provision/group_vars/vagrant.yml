@@ -1,0 +1,15 @@
+---
+# file: group_vars/all
+web_group: vagrant
+web_user: vagrant
+timezone: "Europe/Amsterdam"
+xdebug: true,
+apache_servername: "dev.myconnections.org"
+apache_serveralias: "dev.myconnections.org"
+basedir: "/vagrant"
+sshkey: true
+sitename: "myconnections"
+basedir: "/vagrant"
+docroot: "/vagrant/web"
+projectdir: "/vagrant"
+remote_user: vagrant

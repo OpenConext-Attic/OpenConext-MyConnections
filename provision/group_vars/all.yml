@@ -1,0 +1,15 @@
+---
+# file: group_vars/all
+web_group: www-data
+web_user: www-data
+timezone: "Europe/Amsterdam"
+xdebug: false,
+apache_servername: "dev.myconnections.org"
+apache_serveralias: "dev.myconnections.org"
+basedir: "/var/www"
+sshkey: true
+sitename: "myconnections"
+basedir: "/var/www"
+docroot: "/var/www/{{ sitename }}/web"
+projectdir: "/var/www/{{ sitename }}"
+remote_user: root
