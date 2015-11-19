@@ -142,9 +142,76 @@ div.page-container {
 }
 
 .row {
-  padding: 15px 15px 10px;
+
+  @extend %clearfix;
+  padding: 20px 20px 20px;
+
+  .connection-button,
+  .connection-logo {
+    padding: 0 10px 0 0;
+
+    @include mq($from: tablet) {
+      float: left;
+      width: 25%;
+    }
+  }
+
+  .connection-button {
+    text-align: left;
+
+    @include mq($from: tablet) {
+      text-align: center;
+    }
+  }
+
+  .logo-container {
+    max-width: 160px;
+    border: 1px solid $base-background-color;
+  }
+
+  .connection-description {
+    padding: 20px 0px;
+
+    @include mq($from: tablet) {
+      float: left;
+      width: 50%;
+      padding: 0px;
+    }
+
+    font-size: 13px;
+    span.service {
+      font-weight:bold;
+    }
+
+    p {
+      padding: 0;
+    }
+  }
 }
 
 .border-top {
   border-top: 1px solid $base-background-color;
+}
+
+.btn {
+  display: inline-block;
+  @include border-radius(6px);
+  font-weight: 400;
+  font-size: 16px;
+  color: $white;
+  line-height: 22px;
+  padding: 4px 30px 4px;
+  @include transition(background-color 0.2s ease-in-out);
+
+  &.connect {
+    background-color: $blue;
+  }
+  &.disconnect {
+    background-color: $lightgrey;
+  }
+
+  &:hover {
+    text-decoration: none;
+    background-color: $darkblue;
+  }
 }
