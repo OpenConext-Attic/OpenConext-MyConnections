@@ -20,6 +20,9 @@
 - src: geerlingguy.mysql
   path: roles
 
+- src: geerlingguy.nginx
+  path: roles
+
 - src: geerlingguy.ntp
   path: roles
 

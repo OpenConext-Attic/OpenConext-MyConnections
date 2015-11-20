@@ -4,17 +4,10 @@
 
   roles:
     - { role: geerlingguy.ntp, ntp_timezone: "{{ timezone }}" }
-    - { role: geerlingguy.composer }
     - { role: geerlingguy.mailhog,
           mailhog_binary_url: "https://github.com/mailhog/MailHog/releases/download/v0.1.8/MailHog_linux_amd64" }
-    - { role: geerlingguy.php,
-          php_date_timezone: "{{ timezone }}",
-          php_sendmail_path: "/usr/sbin/ssmtp -t"
-          php_packages:
-            - php-curl
-            - php-xsl
-            - php-gd
-      }
+    - { role: geerlingguy.php, php_date_timezone: "{{ timezone }}", php_sendmail_path: "/usr/sbin/ssmtp -t" }
+    - { role: geerlingguy.composer }
     - { role: geerlingguy.php-mysql }
     - { role: geerlingguy.php-xdebug,
           php_xdebug_remote_autostart: 1,
@@ -51,34 +44,16 @@
           { option: "opcache.fast_shutdown", section: "PHP", value: "1" }
         ]
       }
-    - { role: geerlingguy.apache
-          apache_vhosts:
-            - servername: "{{ apache_servername}}"
-              documentroot: "{{ docroot }}"
-              extra_parameters: |
-                <IfModule mod_fastcgi.c>
-                    AddType application/x-httpd-php .php .phtml .inc
-                    Action application/x-httpd-php /php-fcgi virtual
-                    Alias /php-fcgi /usr/lib/cgi-bin/php-fcgi
-                    FastCgiExternalServer /usr/lib/cgi-bin/php-fcgi -socket /var/run/php-fpm.sock -pass-header Authorization
-                </IfModule>
-
-                <Directory />
-                    Options FollowSymLinks
-                    AllowOverride None
-                </Directory>
-
-                <Directory {{ docroot }}>
-                    Options Indexes FollowSymLinks MultiViews
-                    AllowOverride All
-                    Order allow,deny
-                    allow from all
-                </Directory>
-      }
 
   pre_tasks:
     - name: Perform system update
-      action: yum upgrade=safe state=latest update_cache=yes
+      yum: name=* state=latest update_cache=yes
+    - name: Install RPMForge GPG key
+      rpm_key: state=present key=http://dag.wieers.com/rpm/packages/RPM-GPG-KEY.dag.txt
+    - name: Install RPMForge repo
+      yum: name=http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm state=present
+    - name: Install FastCgi
+      yum: name=mod_fastcgi enablerepo=rpmforge state=latest update_cache=yes
 
   tasks:
     - name: Install common packages

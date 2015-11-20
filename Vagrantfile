@@ -19,7 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # Default vagrant box (get one from remote location)
-  config.vm.box = "puphpet/centos65-x64"
+  config.vm.box = "geerlingguy/centos7"
 
   config.vm.hostname = "dev.myconnections.org"
   config.vm.network "private_network", ip: config_values[:ip]
