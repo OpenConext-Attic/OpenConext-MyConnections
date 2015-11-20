@@ -46,14 +46,12 @@
       }
 
   pre_tasks:
+    - name: Install REMI repo
+      yum: name=http://rpms.famillecollet.com/enterprise/remi-release-7.rpm state=present
+    - name: Enable REMI repo
+      copy: src=remi.repo dest=/etc/yum.repos.d/remi.repo
     - name: Perform system update
       yum: name=* state=latest update_cache=yes
-    - name: Install RPMForge GPG key
-      rpm_key: state=present key=http://dag.wieers.com/rpm/packages/RPM-GPG-KEY.dag.txt
-    - name: Install RPMForge repo
-      yum: name=http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm state=present
-    - name: Install FastCgi
-      yum: name=mod_fastcgi enablerepo=rpmforge state=latest update_cache=yes
 
   tasks:
     - name: Install common packages
