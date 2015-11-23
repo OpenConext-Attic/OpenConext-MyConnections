@@ -11,6 +11,9 @@
 - src: geerlingguy.daemonize
   path: roles
 
+- src: geerlingguy.git
+  path: roles
+
 - src: geerlingguy.java
   path: roles
 
@@ -45,6 +48,9 @@
   path: roles
 
 - src: geerlingguy.redis
+  path: roles
+
+- src: geerlingguy.repo-remi
   path: roles
 
 - src: geerlingguy.ruby

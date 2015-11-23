@@ -1,8 +1,16 @@
 ---
 # file: provision.yml
 - hosts: all
+  vars:
+    database_packages:
+      - "mariadb"
+      - "mariadb-server"
+      - "mariadb-libs"
+      - "MySQL-python"
+      - "perl-DBD-MySQL"
 
   roles:
+    - { role: geerlingguy.repo-remi }
     - { role: geerlingguy.ntp, ntp_timezone: "{{ timezone }}" }
     - { role: geerlingguy.mailhog,
           mailhog_binary_url: "https://github.com/mailhog/MailHog/releases/download/v0.1.8/MailHog_linux_amd64" }
@@ -20,7 +28,13 @@
     - { role: geerlingguy.mysql,
           mysql_root_password: "root",
           mysql_bind_address: "127.0.0.1",
-          mysql_key_buffer_size: "16M"
+          mysql_key_buffer_size: "16M",
+          mysql_root_password_update: true,
+          mysql_daemon: mariadb,
+          mysql_log_error: /var/log/mariadb/mariadb.log,
+          mysql_syslog_tag: mariadb,
+          mysql_pid_file: /var/run/mariadb/mariadb.pid,
+          mysql_packages: "{{ database_packages }}"
       }
     - { role: nbz4live.php-fpm,
         php_fpm_pools: [
@@ -44,25 +58,11 @@
           { option: "opcache.fast_shutdown", section: "PHP", value: "1" }
         ]
       }
+    - { role: geerlingguy.git }
 
   pre_tasks:
-    - name: Install REMI repo
-      yum: name=http://rpms.famillecollet.com/enterprise/remi-release-7.rpm state=present
-    - name: Enable REMI repo
-      copy: src=remi.repo dest=/etc/yum.repos.d/remi.repo
     - name: Perform system update
       yum: name=* state=latest update_cache=yes
-
-  tasks:
-    - name: Install common packages
-      action: yum name={{ item }} state=latest update_cache=yes
-      with_items:
-        - curl
-        - vim
-        - wget
-        - zip
-        - unzip
-        - git
 
     - name: Copy SSH Pub key
       action: authorized_key user={{ ansible_ssh_user }} key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
