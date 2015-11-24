@@ -30,27 +30,25 @@
       - listen: "80 default_server"
         server_name: "{{ servername }}"
         root: "{{ docroot }}"
-        index: "index.php index.html index.htm"
+        index: "app.php"
         extra_parameters: |
           fastcgi_buffers 16 16k;
           fastcgi_buffer_size 32k;
+          rewrite ^/app\.php/?(.*)$ /$1 permanent;
           location / {
-            try_files $uri /app.php$is_args$args;
+            index app.php;
+            try_files $uri @rewriteapp;
           }
-          location ~ ^/(app_dev|config)\.php(/|$) {
+          location @rewriteapp {
+            rewrite ^(.*)$ /app.php/$1 last;
+          }
+          location ~ ^/(app|app_dev|config)\.php(/|$) {
             fastcgi_pass unix:/var/run/php-fpm.sock;
             fastcgi_split_path_info ^(.+\.php)(/.*)$;
             include fastcgi_params;
             fastcgi_param  SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
             fastcgi_param DOCUMENT_ROOT $realpath_root;
-          }
-          location ~ ^/app\.php(/|$) {
-            fastcgi_pass unix:/var/run/php-fpm.sock;
-            fastcgi_split_path_info ^(.+\.php)(/.*)$;
-            include fastcgi_params;
-            fastcgi_param  SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
-            fastcgi_param DOCUMENT_ROOT $realpath_root;
-            internal;
+            fastcgi_param  HTTPS off;
           }
 
   roles:
@@ -111,8 +109,7 @@
           { option: "opcache.interned_strings_buffer", section: "PHP", value: "8" },
           { option: "opcache.max_accelerated_files", section: "PHP", value: "4000" },
           { option: "opcache.revalidate_freq", section: "PHP", value: "60" },
-          { option: "opcache.fast_shutdown", section: "PHP", value: "1" },
-          { option: "cgi.fix_pathinfo", section: "PHP", value: "0" }
+          { option: "opcache.fast_shutdown", section: "PHP", value: "1" }
         ]
       }
     - { role: geerlingguy.git }
