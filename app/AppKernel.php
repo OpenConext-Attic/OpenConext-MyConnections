@@ -16,6 +16,13 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
+            new FOS\HttpCacheBundle\FOSHttpCacheBundle(),
+            new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
+            new Hautelook\TemplatedUriBundle\HautelookTemplatedUriBundle(),
+            new Bazinga\Bundle\RestExtraBundle\BazingaRestExtraBundle(),
             new AppBundle\AppBundle(),
         );
 
@@ -27,6 +34,16 @@ class AppKernel extends Kernel
         }
 
         return $bundles;
+    }
+
+    public function getCacheDir()
+    {
+        // Put the cache in shared mem for the vagrant machine. (performance!)
+        if ($this->environment === 'dev') {
+            return '/dev/shm/myconnections/cache/' .  $this->environment;
+        }
+
+        return parent::getCacheDir();
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)

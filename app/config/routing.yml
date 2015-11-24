@@ -1,3 +1,8 @@
 app:
     resource: "@AppBundle/Controller/"
-    type:     annotation
+    type: annotation
+
+orcid:
+    resource: "@AppBundle/Controller/OrcidRestController.php"
+    type: rest
+    prefix: /api/

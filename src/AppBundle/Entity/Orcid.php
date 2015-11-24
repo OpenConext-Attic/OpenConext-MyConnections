@@ -14,7 +14,7 @@ use JMS\Serializer\Annotation\Expose;
  * )
  * @ExclusionPolicy("all")
  */
-class User
+class Orcid
 {
     /**
      * @var string
