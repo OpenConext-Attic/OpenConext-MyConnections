@@ -1,11 +1,10 @@
 ---
 # file: group_vars/all
-web_group: www-data
-web_user: www-data
+php_group: www-data
+php_user: www-data
 timezone: "Europe/Amsterdam"
 xdebug: false,
-apache_servername: "dev.myconnections.org"
-apache_serveralias: "dev.myconnections.org"
+servername: "www.myconnections.org"
 basedir: "/var/www"
 sshkey: true
 sitename: "myconnections"

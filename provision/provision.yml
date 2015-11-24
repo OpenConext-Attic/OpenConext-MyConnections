@@ -8,16 +8,66 @@
       - "mariadb-libs"
       - "MySQL-python"
       - "perl-DBD-MySQL"
+    php_packages:
+      - php
+      - php-curl
+      - php-cli
+      - php-common
+      - php-devel
+      - php-fpm
+      - php-gd
+      - php-imap
+      - php-intl
+      - php-ldap
+      - php-mbstring
+      - php-pdo
+      - php-pear
+      - php-pecl-apc
+      - php-xml
+      - php-xmlrpc
+      - php-xsl
+    vhosts:
+      - listen: "80 default_server"
+        server_name: "{{ servername }}"
+        root: "{{ docroot }}"
+        index: "index.php index.html index.htm"
+        extra_parameters: |
+          location / {
+            try_files $uri /app.php$is_args$args;
+          }
+          location ~ ^/(app_dev|config)\.php(/|$) {
+            fastcgi_pass unix:/var/run/php-fpm.sock;
+            fastcgi_split_path_info ^(.+\.php)(/.*)$;
+            include fastcgi_params;
+            fastcgi_param  SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
+            fastcgi_param DOCUMENT_ROOT $realpath_root;
+          }
+          location ~ ^/app\.php(/|$) {
+            fastcgi_pass unix:/var/run/php-fpm.sock;
+            fastcgi_split_path_info ^(.+\.php)(/.*)$;
+            include fastcgi_params;
+            fastcgi_param  SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
+            fastcgi_param DOCUMENT_ROOT $realpath_root;
+            internal;
+          }
 
   roles:
     - { role: geerlingguy.repo-remi }
+    - { role: geerlingguy.repo-epel }
     - { role: geerlingguy.ntp, ntp_timezone: "{{ timezone }}" }
     - { role: geerlingguy.mailhog,
           mailhog_binary_url: "https://github.com/mailhog/MailHog/releases/download/v0.1.8/MailHog_linux_amd64" }
-    - { role: geerlingguy.php, php_date_timezone: "{{ timezone }}", php_sendmail_path: "/usr/sbin/ssmtp -t" }
+    - { role: geerlingguy.php,
+          php_enablerepo: "remi-php56",
+          php_date_timezone: "{{ timezone }}",
+          php_sendmail_path: "/usr/sbin/ssmtp -t",
+          php_packages: "{{ php_packages }}",
+          php_enable_webserver: false
+      }
     - { role: geerlingguy.composer }
-    - { role: geerlingguy.php-mysql }
+    - { role: geerlingguy.php-mysql, php_enablerepo: "remi-php56" }
     - { role: geerlingguy.php-xdebug,
+          php_enablerepo: "remi-php56",
           php_xdebug_remote_autostart: 1,
           php_xdebug_idekey: "default",
           php_xdebug_remote_enable: 1,
@@ -25,6 +75,10 @@
           when: xdebug
       }
     - { role: geerlingguy.php-xhprof, xhprof_output_dir: "{{ projectdir }}/xhprof" }
+    - { role: geerlingguy.nginx,
+          nginx_remove_default_vhost: true,
+          nginx_vhosts: "{{ vhosts }}"
+      }
     - { role: geerlingguy.mysql,
           mysql_root_password: "root",
           mysql_bind_address: "127.0.0.1",
@@ -40,12 +94,12 @@
         php_fpm_pools: [
           {
             name: "{{ sitename }}",
-            user: "{{ web_user }}",
-            group: "{{ web_group }}",
+            user: "{{ php_user }}",
+            group: "{{ php_group }}",
             listen: "/var/run/php-fpm.sock",
             listen.mode: "0666",
-            listen.owner: "{{ web_user }}",
-            listen.group: "{{ web_group }}",
+            listen.owner: "{{ php_user }}",
+            listen.group: "{{ php_group }}",
           }
         ],
         php_fpm_ini: [
@@ -55,14 +109,15 @@
           { option: "opcache.interned_strings_buffer", section: "PHP", value: "8" },
           { option: "opcache.max_accelerated_files", section: "PHP", value: "4000" },
           { option: "opcache.revalidate_freq", section: "PHP", value: "60" },
-          { option: "opcache.fast_shutdown", section: "PHP", value: "1" }
+          { option: "opcache.fast_shutdown", section: "PHP", value: "1" },
+          { option: "cgi.fix_pathinfo", section: "PHP", value: "0" }
         ]
       }
     - { role: geerlingguy.git }
 
   pre_tasks:
     - name: Perform system update
-      yum: name=* state=latest update_cache=yes
+      yum: name=* state=latest update_cache=yes enablerepo="remi,remi-php56,epel"
 
     - name: Copy SSH Pub key
       action: authorized_key user={{ ansible_ssh_user }} key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"

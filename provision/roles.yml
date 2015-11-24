@@ -50,6 +50,9 @@
 - src: geerlingguy.redis
   path: roles
 
+- src: geerlingguy.repo-epel
+  path: roles
+
 - src: geerlingguy.repo-remi
   path: roles
 

@@ -1,11 +1,10 @@
 ---
 # file: group_vars/all
-web_group: vagrant
-web_user: vagrant
+php_group: vagrant
+php_user: vagrant
 timezone: "Europe/Amsterdam"
 xdebug: true,
-apache_servername: "dev.myconnections.org"
-apache_serveralias: "dev.myconnections.org"
+servername: "dev.myconnections.org"
 basedir: "/vagrant"
 sshkey: true
 sitename: "myconnections"
