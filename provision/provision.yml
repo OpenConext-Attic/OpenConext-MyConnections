@@ -32,6 +32,8 @@
         root: "{{ docroot }}"
         index: "index.php index.html index.htm"
         extra_parameters: |
+          fastcgi_buffers 16 16k;
+          fastcgi_buffer_size 32k;
           location / {
             try_files $uri /app.php$is_args$args;
           }
