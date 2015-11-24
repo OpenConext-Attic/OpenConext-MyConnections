@@ -20,4 +20,6 @@ In order to update the ansible galaxy roles there is `roles.yml` file. To update
     ansible-galaxy install -r roles.yml --force
 
 # Mailhog
-See: https://github.com/mailhog/MailHog
+In order to view what in the mailqueue go to: http://dev.myconnections.org:8025
+See: https://github.com/mailhog/MailHog for additional documentation about Mailhog.
+
