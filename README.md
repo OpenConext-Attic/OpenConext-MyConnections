@@ -6,11 +6,18 @@
 * Vagrant >=1.7.4
 * Ansible >=1.9.4
 
-# Vagrant setup
+# Setup project
+
+Clone this git repository
 
 Initialize the vagrant box by running:
 
     vagrant up
+
+Create database schema by running
+
+    ./console doctrine:schema:update --force
+
 
 # Ansible
 
