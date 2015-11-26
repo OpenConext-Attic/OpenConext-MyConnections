@@ -5,6 +5,7 @@
 * Virtualbox >=5.0
 * Vagrant >=1.7.4
 * Ansible >=1.9.4
+* Composer
 
 # Setup project
 
@@ -13,6 +14,11 @@ Clone this git repository
 Initialize the vagrant box by running:
 
     vagrant up
+
+Install all dependencies by running:
+
+    composer install
+
 
 Create database schema by running
 

@@ -10,6 +10,7 @@ class AppKernel extends Kernel
         $bundles = array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
+            new Nelmio\SecurityBundle\NelmioSecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
@@ -39,9 +40,9 @@ class AppKernel extends Kernel
     public function getCacheDir()
     {
         // Put the cache in shared mem for the vagrant machine. (performance!)
-        if ($this->environment === 'dev') {
-            return '/dev/shm/myconnections/cache/' .  $this->environment;
-        }
+//        if ($this->environment === 'dev') {
+//            return '/dev/shm/myconnections/cache/' .  $this->environment;
+//        }
 
         return parent::getCacheDir();
     }

@@ -1,8 +1,9 @@
 app:
-    resource: "@AppBundle/Controller/"
+    resource: "@AppBundle/Controller/DefaultController.php"
     type: annotation
 
 orcid:
     resource: "@AppBundle/Controller/OrcidRestController.php"
+    defaults: {_format: json}
     type: rest
     prefix: /api/

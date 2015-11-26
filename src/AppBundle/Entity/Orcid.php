@@ -22,12 +22,12 @@ class Orcid
      * @ORM\Column(
      *     type="string",
      *     length=255,
-     *     name="key",
+     *     name="id",
      *     nullable=false
      * )
      * @Expose()
      */
-    protected $key;
+    protected $id;
 
     /**
      * @var string
@@ -60,16 +60,16 @@ class Orcid
     /**
      * @return string
      */
-    public function getKey()
+    public function getId()
     {
-        return $this->key;
+        return $this->id;
     }
 
     /**
-     * @param string $key
+     * @param string $id
      */
-    public function setKey($key)
+    public function setId($id)
     {
-        $this->key = $key;
+        $this->id = $id;
     }
 }
