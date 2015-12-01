@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 namespace AppBundle\Security\Authentication;
+use AppBundle\Saml\StateHandler;
 use Surfnet\SamlBundle\Entity\IdentityProvider;
 use Surfnet\SamlBundle\Entity\ServiceProvider;
 use Surfnet\SamlBundle\Http\PostBinding;
@@ -39,22 +40,29 @@ class SamlInteractionProvider
      * @var \Surfnet\SamlBundle\Http\PostBinding
      */
     private $postBinding;
+    /**
+     * @var \AppBundle\Saml\StateHandler
+     */
+    private $stateHandler;
     public function __construct(
         ServiceProvider $serviceProvider,
         IdentityProvider $identityProvider,
         RedirectBinding $redirectBinding,
-        PostBinding $postBinding
+        PostBinding $postBinding,
+        StateHandler $sessionHandler
     ) {
         $this->serviceProvider = $serviceProvider;
         $this->identityProvider = $identityProvider;
         $this->redirectBinding = $redirectBinding;
         $this->postBinding = $postBinding;
+        $this->stateHandler = $sessionHandler;
     }
     /**
      * @return bool
      */
     public function isSamlAuthenticationInitiated()
     {
+        return $this->stateHandler->hasRequestId();
     }
     /**
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -65,6 +73,7 @@ class SamlInteractionProvider
             $this->serviceProvider,
             $this->identityProvider
         );
+        $this->stateHandler->setRequestId($authnRequest->getRequestId());
         return $this->redirectBinding->createRedirectResponseFor($authnRequest);
     }
     /**
@@ -79,6 +88,7 @@ class SamlInteractionProvider
             $this->identityProvider,
             $this->serviceProvider
         );
+        $this->stateHandler->clearRequestId();
         return $assertion;
     }
     /**
@@ -86,5 +96,6 @@ class SamlInteractionProvider
      */
     public function reset()
     {
+        $this->stateHandler->clearRequestId();
     }
 }
