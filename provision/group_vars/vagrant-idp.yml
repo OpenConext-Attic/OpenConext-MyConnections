@@ -1,0 +1,39 @@
+---
+# file: group_vars/all
+php_group: vagrant
+php_user: vagrant
+timezone: "Europe/Amsterdam"
+xdebug: true,
+servername: "dev.idp.org"
+basedir: "/vagrant"
+sshkey: true
+sitename: "myconnections"
+basedir: "/vagrant"
+docroot: "/vagrant/idp-test/www"
+projectdir: "/vagrant"
+remote_user: vagrant
+vhosts:
+  - listen: "80 default_server"
+    server_name: "{{ servername }}"
+    root: "{{ docroot }}"
+    index: "app.php"
+    extra_parameters: |
+      fastcgi_buffers 16 16k;
+      fastcgi_buffer_size 32k;
+      location / {
+        index index.php;
+        try_files $uri @rewriteapp;
+      }
+      location @rewriteapp {
+        rewrite ^(.*)$ /index.php$is_args$args last;
+      }
+      location ~ ^/.+\.php(/|$) {
+        index index.php;
+        fastcgi_pass unix:/var/run/php-fpm.sock;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_param  SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
+        fastcgi_param  HTTPS off;
+      }

@@ -1,2 +1,5 @@
-[vagrant]
+[vagrant-app]
 33.34.35.36
+
+[vagrant-idp]
+33.34.35.37
