@@ -24,6 +24,7 @@ class AppExtension extends Extension
     {
         $fileLocator = new FileLocator(__DIR__ . '/../Resources/config');
         $loader = new YamlFileLoader($container, $fileLocator);
+        $loader->load('controllers.yml');
         $loader->load('services.yml');
     }
 }

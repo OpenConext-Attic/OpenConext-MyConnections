@@ -7,3 +7,7 @@ orcid:
     defaults: {_format: json}
     type: rest
     prefix: /api/
+
+appbundle:
+    resource:   "@AppBundle/Resources/config/routing.yml"
+    prefix:     /

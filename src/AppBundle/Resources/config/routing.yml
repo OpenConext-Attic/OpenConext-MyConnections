@@ -1,0 +1,13 @@
+app.saml_consume_assertion:
+    path:       /authentication/consume-assertion
+    methods:    [POST]
+    schemes:    http
+    defaults:
+        _controller: app.controller.saml:consumeAssertionAction
+
+app.saml_metadata:
+    path:       /authentication/metadata
+    methods:    [GET]
+    schemes:    http
+    defaults:
+        _controller: app.controller.saml:metadataAction

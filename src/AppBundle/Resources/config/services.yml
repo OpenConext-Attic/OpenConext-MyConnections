@@ -3,10 +3,9 @@ services:
     app.saml.session:
         class: Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag
         factory: [ '@session', 'getBag' ]
-        arguments: [ 'profile' ]
+        arguments: [ 'app' ]
 
     app.saml.state_handler:
-        public: false
         class: AppBundle\Saml\StateHandler
         arguments:
             - @app.saml.session
@@ -23,7 +22,7 @@ services:
         public: false
         class: Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag
         arguments:
-            - '__profile__'
+            - '__app__'
             - '/'
         calls:
-            - [setName, ['profile']]
+            - [setName, ['app']]

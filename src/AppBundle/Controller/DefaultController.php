@@ -17,6 +17,19 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $provider = $this->get('app.interactionprovider');
+        $stateHandler = $this->get('app.saml.state_handler');
+
+        if (!$provider->isSamlAuthenticationInitiated()) {
+
+            $stateHandler->setCurrentRequestUri($request->getUri());
+            return $provider->initiateSamlRequest();
+        }
+
+        $expectedInResponseTo = $stateHandler->getRequestId();
+        $assertion = $provider->processSamlResponse($request);
+
+
         return $this->render('AppBundle:default:index.html.twig');
     }
 }

@@ -1,0 +1,5 @@
+services:
+    app.controller.saml:
+        class: AppBundle\Controller\SamlController
+        arguments:
+            - @surfnet_saml.metadata_factory

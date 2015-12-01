@@ -19,14 +19,14 @@ $metadata['google.com'] = array(
     'simplesaml.attributes' => FALSE,
 );
 
-$metadata['https://gw-dev.stepup.coin.surf.net/app_dev.php/authentication/metadata'] = array(
-    'entityid'                 => 'https://gw-dev.stepup.coin.surf.net/app_dev.php/authentication/metadata',
+$metadata['http://dev.myconnections.org/app_dev.php/authentication/metadata'] = array(
+    'entityid'                 => 'http://dev.myconnections.org/app_dev.php/authentication/metadata',
     'contacts'                 => array(),
     'metadata-set'             => 'saml20-sp-remote',
     'AssertionConsumerService' => array(
         0 => array(
             'Binding'  => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
-            'Location' => 'https://gw-dev.stepup.coin.surf.net/app_dev.php/authentication/consume-assertion',
+            'Location' => 'http://dev.myconnections.org/app_dev.php/authentication/consume-assertion',
             'index'    => 0,
         ),
     ),

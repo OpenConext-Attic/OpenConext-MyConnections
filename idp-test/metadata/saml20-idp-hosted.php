@@ -24,25 +24,7 @@ $metadata['__DYNAMIC:1__'] = array(
 	'auth' => 'example-userpass',
     'userid.attribute' => 'urn:oid:1.2.840.113549.1.9.1',
     'authproc'           => array(
-        // convert OID formatted attributes from SAML assertion to 'name' similar to LDAP
-        // so they will be available as 'mail' and 'displayName'
-        1 => array (
-            'class' => 'orcid:AttributeAddOrcid',
-            'userIdAttribute' => 'uid',
-            'clientConfig' => array (
-                'authorize_endpoint' => 'https://orcid.org/oauth/authorize',
-                'client_id' => 'APP-ECVP5NFWPLGNIBAE',
-                'client_secret' => '4d101285-f73d-4954-a9d5-5bf809c19678',
-                'grant_type' => 'authorization_code',
-                'token_endpoint' => 'https://pub.orcid.org/oauth/token',
-                'redirect_uri' => 'https://orcid.demo.openconext.org/redirect-orcid.php',
-                'orcid_back' => 'https://orcid.demo.openconext.org/simplesaml/module.php/orcid/orcidback.php',
-            ),
-        ),
-        2 => array(
-            'class' => 'core:AttributeMap', 'oid2name',
-        ),
-        3 => array(
+        40 => array(
             'class'     => 'saml:PersistentNameID',
             'attribute' => 'mail',
         ),
