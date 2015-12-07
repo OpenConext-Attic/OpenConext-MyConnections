@@ -27,5 +27,11 @@ services:
         calls:
             - [setName, ['app']]
 
+    app.orcid.service:
+        class: AppBundle\Connections\Service
+        factory: [ 'AppBundle\Connections\ServiceFactory', 'create' ]
+        arguments:
+            - @session
+
     app.guzzle:
         class: GuzzleHttp\Client
