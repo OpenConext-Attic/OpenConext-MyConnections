@@ -127,3 +127,12 @@ surfnet_saml:
             entity_id: %saml_remote_idp_entity_id%
             sso_url: %saml_remote_idp_sso_url%
             certificate: %saml_remote_idp_certificate%
+app:
+    orcid:
+        authorize_endpoint: %orcid_authorize_endpoint%
+        client_id: %orcid_client_id%
+        client_secret: %orcid_client_secret%
+        grant_type: %orcid_grant_type%
+        token_endpoint: %orcid_token_endpoint%
+        redirect_url: %orcid_redirect_uri%
+        orcid_back: %orcid_orcid_back%

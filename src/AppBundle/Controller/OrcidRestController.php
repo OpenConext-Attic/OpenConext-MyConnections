@@ -165,7 +165,6 @@ class OrcidRestController extends FOSRestController
         $em->remove($orcid);
         $em->flush();
 
-
         $this->get('logger')->info("Removed ORCID with id: " . $orcid->getId());
         return $this->routeRedirectView('get_orcids');
     }

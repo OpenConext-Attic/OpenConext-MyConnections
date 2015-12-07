@@ -1,13 +1,3 @@
-app:
-    resource: "@AppBundle/Controller/DefaultController.php"
-    type: annotation
-
-orcid:
-    resource: "@AppBundle/Controller/OrcidRestController.php"
-    defaults: {_format: json}
-    type: rest
-    prefix: /api/
-
 appbundle:
     resource:   "@AppBundle/Resources/config/routing.yml"
     prefix:     /

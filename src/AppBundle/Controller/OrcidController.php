@@ -1,0 +1,114 @@
+<?php
+
+namespace AppBundle\Controller;
+
+use AppBundle\Entity\Orcid;
+use Doctrine\DBAL\DBALException;
+use GuzzleHttp\Client;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+
+/**
+ * Class OrcidController
+ * @package AppBundle\Controller
+ */
+class OrcidController extends Controller
+{
+    /**
+     * Orcid OAuth authentication request.
+     *
+     * @see http://members.orcid.org/api/tutorial-retrieve-orcid-id-curl-v12-and-earlier
+     *
+     * @Route("/orcid/authorize", name="orcid_authorize")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function authorizeAction(Request $request)
+    {
+        if (!$this->isLoggedIn())
+        {
+            return $this->redirectToRoute('index');
+        }
+
+        $params = [
+            'client_id' => $this->getParameter('orcid_client_id'),
+            'response_type' => 'code',
+            'scope' => '/authenticate',
+            'redirect_uri' => $this->generateUrl('orcid_consume', [] , true)
+        ];
+        $endpoint =
+            $this->getParameter('orcid_authorize_endpoint') .
+            '?' .
+            http_build_query($params);
+
+        return $this->redirect($endpoint);
+    }
+
+    /**
+     * @see http://members.orcid.org/api/tutorial-retrieve-orcid-id-curl-v12-and-earlier
+     * @Route("/orcid/consume", name="orcid_consume")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function consumeAction(Request $request)
+    {
+        if (!$this->isLoggedIn()) {
+            return $this->redirectToRoute('index');
+        }
+
+        // Did we get an Oauth token?
+        $code = $request->get('code', NULL);
+        if (NULL === $code || empty($code)) {
+            return $this->redirectToRoute('auth_error');
+        }
+
+        // Request for authorization code
+        $token_endpoint = $this->getParameter('orcid_token_endpoint');
+        $form_params = [
+            'client_id' => $this->getParameter('orcid_client_id'),
+            'client_secret' => $this->getParameter('orcid_client_secret'),
+            'grant_type' => 'authorization_code',
+            'code' => $request->get('code'),
+            'redirect_uri' => $this->generateUrl('orcid_consume', [], true)
+        ];
+
+        $client = $this->get('app.guzzle');
+        $response = $client->request('POST', $token_endpoint, [
+            'form_params' => $form_params,
+            'headers' => [ 'Accept' => 'application/json' ]
+        ]);
+
+        // Authentication error?
+        if ($response->getStatusCode() !== 200) {
+            return $this->redirectToRoute('auth_error');
+        }
+
+        $data = json_decode($response->getBody());
+
+        $user = $this->get('session')->get('user');
+
+        $entity = new Orcid();
+        $entity->setService('orcid');
+        $entity->setValue($data->orcid);
+        $entity->setId($user['eduPPN']);
+
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+        } catch (DBALException $e) {
+            $this->get('logger')->addError('Unable to save ORCID id');
+            return $this->redirectToRoute('auth_error');
+        }
+        return $this->redirectToRoute('index');
+    }
+
+    /**
+     * @return bool
+     */
+    private function isLoggedIn()
+    {
+        $user = $this->get('session')->get('user');
+        return (!empty($user));
+    }
+}

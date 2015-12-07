@@ -28,7 +28,8 @@
     "willdurand/hateoas-bundle": "^1.0",
     "hautelook/templated-uri-bundle": "^2.0",
     "willdurand/rest-extra-bundle": "^1.0",
-    "surfnet/stepup-saml-bundle": "^1.5"
+    "surfnet/stepup-saml-bundle": "^1.5",
+    "guzzlehttp/guzzle": "~6.0"
   },
   "require-dev": {
     "sensio/generator-bundle": "~2.3"

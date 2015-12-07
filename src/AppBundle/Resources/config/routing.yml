@@ -11,3 +11,16 @@ app.saml_metadata:
     schemes:    http
     defaults:
         _controller: app.controller.saml:metadataAction
+app:
+    resource: "@AppBundle/Controller/DefaultController.php"
+    type: annotation
+
+orcid:
+    resource: "@AppBundle/Controller/OrcidController.php"
+    type: annotation
+
+orcid_rest:
+    resource: "@AppBundle/Controller/OrcidRestController.php"
+    defaults: {_format: json}
+    type: rest
+    prefix: /api/

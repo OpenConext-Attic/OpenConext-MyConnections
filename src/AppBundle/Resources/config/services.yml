@@ -26,3 +26,6 @@ services:
             - '/'
         calls:
             - [setName, ['app']]
+
+    app.guzzle:
+        class: GuzzleHttp\Client

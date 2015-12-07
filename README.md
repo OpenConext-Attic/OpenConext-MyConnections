@@ -22,6 +22,8 @@ Install all dependencies by running:
 
 Create database schema by running
 
+    ./console doctrine:schema:create
+    OR
     ./console doctrine:schema:update --force
 
 

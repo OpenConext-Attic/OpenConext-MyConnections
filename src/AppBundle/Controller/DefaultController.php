@@ -31,7 +31,6 @@ class DefaultController extends Controller
             $name = $user['uid'];
         }
 
-
         return $this->render('AppBundle:default:index.html.twig', [ 'name' => $name ]);
     }
 
@@ -61,6 +60,16 @@ class DefaultController extends Controller
 
         $stateHandler->setCurrentRequestUri($request->getUri());
         return $provider->initiateSamlRequest();
+    }
+
+    /**
+     * @Route("/auth_error", name="auth_error")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function authErrorAction(Request $request)
+    {
+        return $this->render('AppBundle:default:auth_error.html.twig', [ 'name' => 'Guest' ]);
     }
 
     /**

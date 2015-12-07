@@ -1,0 +1,16 @@
+{% extends 'AppBundle:default:index.html.twig' %}
+
+{% block modal %}
+<div class="modal login-modal">
+    <div class="modal-fade-screen">
+        <div class="modal-inner">
+            <h1>Authentication error</h1>
+            <p class="modal-content">
+                Unfortunately there was an authentication error. Please try again.
+                <br/>
+                <a href="{{  url('homepage') }}" class="btn connect">Home</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

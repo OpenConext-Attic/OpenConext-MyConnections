@@ -99,10 +99,11 @@ $config = array(
             'schacHomeOrganization'   => 'Example Org'            // schacHomeOrganisation
         ),
         'employee:employeepass' => array(
-            'urn:oid:0.9.2342.19200300.100.1.1' => array('test-employee'),  // uid
-            'urn:oid:2.16.840.1.113730.3.1.241' => 'Employee Pass',         // displayName
-            'urn:oid:1.2.840.113549.1.9.1'      => 'employee@example.com',  // email (also used for EPTI)
-            'urn:oid:1.3.6.1.4.1.25178.1.2.9'   => 'Example Org'            // schacHomeOrganisation
+            'urn:oid:0.9.2342.19200300.100.1.1' => array('test-employee'),     // uid
+            'urn:oid:2.16.840.1.113730.3.1.241' => 'Employee Pass',            // displayName
+            'urn:oid:1.2.840.113549.1.9.1'      => 'employee@example.com',     // email (also used for EPTI)
+            'urn:oid:1.3.6.1.4.1.25178.1.2.9'   => 'Example Org',              // schacHomeOrganisation
+            'urn:oid:1.3.6.1.4.1.5923.1.1.1.6'  => 'martinroest@ibuildings.nl' // eduPersonPrincipalName
         ),
         'foo:bar' => array(
 //            'urn:oid:0.9.2342.19200300.100.1.1' => array('foobar'),         // uid

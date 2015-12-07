@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace OpenConext\ProfileBundle\DependencyInjection;
+namespace AppBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
@@ -22,7 +22,23 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('appbundle');
+        $rootNode = $treeBuilder->root('app');
+
+        $rootNode
+            ->children()
+                ->arrayNode('orcid')
+                    ->children()
+                        ->scalarNode('authorize_endpoint')->end()
+                        ->scalarNode('client_id')->end()
+                        ->scalarNode('client_secret')->end()
+                        ->scalarNode('grant_type')->end()
+                        ->scalarNode('token_endpoint')->end()
+                        ->scalarNode('redirect_url')->end()
+                        ->scalarNode('orcid_back')->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
         return $treeBuilder;
     }
 }

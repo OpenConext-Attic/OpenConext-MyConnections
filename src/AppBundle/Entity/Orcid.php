@@ -31,6 +31,19 @@ class Orcid
 
     /**
      * @var string
+     * @ORM\Id()
+     * @ORM\Column(
+     *     type="string",
+     *     length=255,
+     *     name="service",
+     *     nullable=false
+     * )
+     * @Expose()
+     */
+    protected $service;
+
+    /**
+     * @var string
      * @ORM\Column(
      *     type="string",
      *     length=255,
@@ -71,5 +84,21 @@ class Orcid
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    /**
+     * @param string $service
+     */
+    public function setService($service)
+    {
+        $this->service = $service;
     }
 }
