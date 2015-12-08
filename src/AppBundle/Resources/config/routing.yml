@@ -20,7 +20,7 @@ orcid:
     type: annotation
 
 orcid_rest:
-    resource: "@AppBundle/Controller/OrcidRestController.php"
+    resource: "@AppBundle/Controller/RestController.php"
     defaults: {_format: json}
     type: rest
     prefix: /api/

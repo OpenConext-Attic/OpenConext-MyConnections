@@ -9,12 +9,12 @@ use JMS\Serializer\Annotation\Expose;
 /**
  * @ORM\Entity
  * @ORM\Table(
- *     name="orcid",
- *     indexes={@ORM\Index(name="value_idx", columns={"value"})}
+ *     name="connection",
+ *     indexes={@ORM\Index(name="value_idx", columns={"cuid"})}
  * )
  * @ExclusionPolicy("all")
  */
-class Orcid
+class Connection
 {
     /**
      * @var string
@@ -22,12 +22,12 @@ class Orcid
      * @ORM\Column(
      *     type="string",
      *     length=255,
-     *     name="id",
+     *     name="uid",
      *     nullable=false
      * )
      * @Expose()
      */
-    protected $id;
+    protected $uid;
 
     /**
      * @var string
@@ -47,44 +47,12 @@ class Orcid
      * @ORM\Column(
      *     type="string",
      *     length=255,
-     *     name="value",
+     *     name="cuid",
      *     nullable=false
      * )
      * @Expose()
      */
-    protected $value;
-
-    /**
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @param string $value
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
-
-    /**
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param string $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
+    protected $cuid;
 
     /**
      * @return string
@@ -100,5 +68,37 @@ class Orcid
     public function setService($service)
     {
         $this->service = $service;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUid()
+    {
+        return $this->uid;
+    }
+
+    /**
+     * @param string $uid
+     */
+    public function setUid($uid)
+    {
+        $this->uid = $uid;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCuid()
+    {
+        return $this->cuid;
+    }
+
+    /**
+     * @param string $cuid
+     */
+    public function setCuid($cuid)
+    {
+        $this->cuid = $cuid;
     }
 }

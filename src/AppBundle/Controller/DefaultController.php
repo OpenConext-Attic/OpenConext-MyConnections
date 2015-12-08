@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Connection;
 
 /**
  * Class DefaultController
@@ -17,21 +18,58 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $user = $this->get('session')->get('user');
+        $connections = [];
 
-        if ($user === NULL || !is_array($user) || empty($user))
-        {
+        $user = $this->get('app.user');
+        if (!$user->has('nameId')) {
             return $this->redirectToRoute('login');
         }
 
-        if (!empty($user['displayName']))
-        {
-            $name = $user['displayName'];
-        } else {
-            $name = $user['uid'];
+        // Default name...
+        $nameId = $user->get('nameId');
+        $name = $nameId['Value'];
+
+        if ($user->has('displayName')) {
+            $name = $user->get('displayName');
         }
 
-        return $this->render('AppBundle:default:index.html.twig', [ 'name' => $name ]);
+        if ($user->has('eduPPN')) {
+
+            $connected = $this->getDoctrine()
+                ->getRepository('AppBundle:Connection')
+                ->findAll(
+                    [
+                        'uid' => $user->get('eduPPN')
+                    ]
+                );
+
+            /** @var Connection $c */
+            foreach ($connected as $c) {
+                $user->set($c->getService(), $c->getCuid());
+                try {
+                    // Try to load the service.
+                    $connections[] = $this->get(
+                        'app.service.' .
+                        $c->getService()
+                    );
+                } catch(\Exception $e) {
+                    $this->get('logger')
+                        ->addError(
+                            'Service ' .
+                            $c->getService() .
+                            ' unavailable'
+                        );
+                }
+            }
+        }
+
+        return $this->render(
+            'AppBundle:default:index.html.twig',
+            [
+                'name' => $name,
+                'connections' => $connections
+            ]
+        );
     }
 
     /**
@@ -43,7 +81,12 @@ class DefaultController extends Controller
      */
     public function loginAction(Request $request)
     {
-        return $this->render('AppBundle:default:login.html.twig', [ 'name' => 'Guest' ]);
+        return $this->render(
+            'AppBundle:default:login.html.twig',
+            [
+                'name' => 'Guest'
+            ]
+        );
     }
 
     /**
@@ -69,7 +112,12 @@ class DefaultController extends Controller
      */
     public function authErrorAction(Request $request)
     {
-        return $this->render('AppBundle:default:auth_error.html.twig', [ 'name' => 'Guest' ]);
+        return $this->render(
+            'AppBundle:default:auth_error.html.twig',
+            [
+                'name' => 'Guest'
+            ]
+        );
     }
 
     /**
@@ -79,7 +127,9 @@ class DefaultController extends Controller
      */
     public function logoutAction()
     {
-        $this->get('session')->clear();
+        $user = $this->get('app.user');
+        $user->clear();
+
         return $this->redirectToRoute('index');
     }
 }

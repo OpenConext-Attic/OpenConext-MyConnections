@@ -25,6 +25,7 @@ use Surfnet\SamlBundle\SAML2\Response\Assertion\InResponseTo;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
 
 class SamlController extends Controller
 {
@@ -33,11 +34,17 @@ class SamlController extends Controller
      */
     private $metadataFactory;
     /**
+     * @var NamespacedAttributeBag
+     */
+    private $user;
+
+    /**
      * @param MetadataFactory $metadataFactory
      */
-    public function __construct(MetadataFactory $metadataFactory)
+    public function __construct(MetadataFactory $metadataFactory, NamespacedAttributeBag $user)
     {
         $this->metadataFactory = $metadataFactory;
+        $this->user = $user;
     }
     public function consumeAssertionAction(Request $request)
     {
@@ -64,25 +71,23 @@ class SamlController extends Controller
 
         try {
             $nameId = $assertion->getNameId();
-            $displayName = $this->getAtribute($aSet, $this->get('saml.attribute.displayname'));
-            $eduPPN = $this->getAtribute($aSet, $this->get('saml.attribute.edupersonprincipalname'));
-            $uid = $this->getAtribute($aSet, $this->get('saml.attribute.uid'));
-            $conextId = $this->getAtribute($aSet, $this->get('saml.attribute.surfconext.id'));
+            $displayName = $this->getAtribute(
+                $aSet,
+                $this->get('saml.attribute.displayname')
+            );
+            $eduPPN = $this->getAtribute(
+                $aSet,
+                $this->get('saml.attribute.edupersonprincipalname')
+            );
         } catch (Exception $e)
         {
             throw new AuthenticationException('Error in retrieving attributes');
         }
 
-        $this->get('session')->set(
-            'user',
-            [
-                'nameId'      => $nameId,
-                'displayName' => $displayName,
-                'eduPPN'      => $eduPPN,
-                'uid'         => $uid,
-                'conextUid'   => $conextId,
-            ]
-        );
+        // Set user info.
+        $this->user->set('nameId', $nameId);
+        $this->user->set('eduPPN', $eduPPN);
+        $this->user->set('displayName', $displayName);
 
         return $this->redirectToRoute('index');
     }

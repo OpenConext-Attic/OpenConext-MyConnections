@@ -1,9 +1,13 @@
 services:
-
     app.saml.session:
         class: Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag
         factory: [ '@session', 'getBag' ]
         arguments: [ 'app' ]
+
+    app.user:
+        class: Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag
+        factory: [ '@session', 'getBag' ]
+        arguments: [ 'user' ]
 
     app.saml.state_handler:
         class: AppBundle\Saml\StateHandler
@@ -18,6 +22,7 @@ services:
             - @surfnet_saml.http.redirect_binding
             - @surfnet_saml.http.post_binding
             - @app.saml.state_handler
+
     app.session.namespaced_attribute_bag:
         public: false
         class: Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag
@@ -27,11 +32,30 @@ services:
         calls:
             - [setName, ['app']]
 
-    app.orcid.service:
+    app.user.session.namespaced_attribute_bag:
+        public: false
+        class: Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag
+        arguments:
+            - '__app__'
+            - '/'
+        calls:
+            - [setName, ['user']]
+
+    app.service.orcid:
         class: AppBundle\Connections\Service
         factory: [ 'AppBundle\Connections\ServiceFactory', 'create' ]
         arguments:
-            - @session
+            - 'orcid'
+            - 'ORCID'
+            - '/images/orcid.png'
+            - |
+              <span class="service">ORCID</span> is a nonproprietary alphanumeric code to uniquely identify scientific
+              and other academic authors. This addresses the problem that a particular author's contributions to the
+              scientific literature or publications in the humanities can be hard to recognize as most personal names
+              are not unique, they can change (such as with marriage), have cultural differences in name order,
+              contain inconsistent use of first-name abbreviations and employ different writing systems.
+            - 'orcid_authorize'
+            - @app.user
 
     app.guzzle:
         class: GuzzleHttp\Client

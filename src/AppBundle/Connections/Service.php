@@ -8,6 +8,7 @@
 
 namespace AppBundle\Connections;
 
+use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
 
 class Service
 {
@@ -32,9 +33,9 @@ class Service
      */
     protected $route;
     /**
-     * @var string
+     * @var NamespacedAttributeBag
      */
-    protected $uid;
+    protected $user;
 
     /**
      * @return string
@@ -117,18 +118,18 @@ class Service
     }
 
     /**
-     * @return string
+     * @return NamespacedAttributeBag
      */
-    public function getUid()
+    public function getUser()
     {
-        return $this->uid;
+        return $this->user;
     }
 
     /**
-     * @param string $uid
+     * @param NamespacedAttributeBag $user
      */
-    public function setUid($uid)
+    public function setUser(NamespacedAttributeBag $user)
     {
-        $this->uid = $uid;
+        $this->user = $user;
     }
 }

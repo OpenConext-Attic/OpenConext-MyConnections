@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Orcid;
+use AppBundle\Entity\Connection;
 use Doctrine\DBAL\DBALException;
 use GuzzleHttp\Client;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,8 +25,7 @@ class OrcidController extends Controller
      */
     public function authorizeAction(Request $request)
     {
-        if (!$this->isLoggedIn())
-        {
+        if (!$this->isLoggedIn()) {
             return $this->redirectToRoute('index');
         }
 
@@ -85,19 +84,17 @@ class OrcidController extends Controller
 
         $data = json_decode($response->getBody());
 
-        $user = $this->get('session')->get('user');
-
-        $entity = new Orcid();
-        $entity->setService('orcid');
-        $entity->setValue($data->orcid);
-        $entity->setId($user['eduPPN']);
+        $connection = new Connection();
+        $connection->setService('orcid');
+        $connection->setCuid($data->orcid);
+        $connection->setUid($this->get('app.user')->get('eduPPN'));
 
         try {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($connection);
             $em->flush();
         } catch (DBALException $e) {
-            $this->get('logger')->addError('Unable to save ORCID id');
+            $this->get('logger')->addError('Unable to save ORCID id with message ' . $e->getMessage());
             return $this->redirectToRoute('auth_error');
         }
         return $this->redirectToRoute('index');
@@ -108,7 +105,6 @@ class OrcidController extends Controller
      */
     private function isLoggedIn()
     {
-        $user = $this->get('session')->get('user');
-        return (!empty($user));
+        return ($this->get('app.user')->has('nameId'));
     }
 }

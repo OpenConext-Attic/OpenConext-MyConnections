@@ -3,5 +3,6 @@ services:
         class: AppBundle\Controller\SamlController
         arguments:
             - @surfnet_saml.metadata_factory
+            - @app.user
         calls:
             - [setContainer, [ "@service_container"] ]
