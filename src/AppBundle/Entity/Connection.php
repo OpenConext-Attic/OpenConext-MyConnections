@@ -53,6 +53,16 @@ class Connection
      * @Expose()
      */
     protected $cuid;
+    /**
+     * @var string
+     * @ORM\Column(
+     *     type="datetime",
+     *     name="established_at",
+     *     nullable=false
+     * )
+     * @Expose()
+     */
+    protected $established_at = 'CURRENT_TIMESTAMP';
 
     /**
      * @return string
@@ -100,5 +110,21 @@ class Connection
     public function setCuid($cuid)
     {
         $this->cuid = $cuid;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEstablishedAt()
+    {
+        return $this->established_at;
+    }
+
+    /**
+     * @param string $established_at
+     */
+    public function setEstablishedAt($established_at)
+    {
+        $this->established_at = $established_at;
     }
 }

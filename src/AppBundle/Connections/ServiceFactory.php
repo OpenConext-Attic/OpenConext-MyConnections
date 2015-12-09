@@ -8,6 +8,7 @@
 
 namespace AppBundle\Connections;
 
+use AppBundle\DTO\Connection;
 use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
 
 class ServiceFactory
@@ -18,7 +19,8 @@ class ServiceFactory
      * @param string $display_name
      * @param string $logo
      * @param string $description
-     * @param string $route
+     * @param $route_connect
+     * @param $route_disconnect
      * @param NamespacedAttributeBag $user
      * @return Service
      */
@@ -27,7 +29,8 @@ class ServiceFactory
         $display_name,
         $logo,
         $description,
-        $route,
+        $route_connect,
+        $route_disconnect,
         NamespacedAttributeBag $user) {
 
         $service = new Service();
@@ -36,9 +39,32 @@ class ServiceFactory
         $service->setDisplayName($display_name);
         $service->setLogo($logo);
         $service->setDescription($description);
-        $service->setRoute($route);
+        $service->setRouteConnect($route_connect);
+        $service->setRouteDisconnect($route_disconnect);
         $service->setUser($user);
 
         return $service;
+    }
+
+    /**
+     * @param Service $service
+     * @param $username
+     * @param $connection_id
+     * @param $established_at
+     * @return Connection
+     */
+    public function createDto(Service $service, $username, $connection_id, $established_at) {
+        $dto = new Connection(
+            $service->getDisplayName(),
+            $service->getMachineName(),
+            $service->getLogo(),
+            $established_at,
+            $username,
+            $connection_id,
+            $service->getDescription(),
+            $service->getRouteConnect(),
+            $service->getRouteDisconnect()
+        );
+        return $dto;
     }
 }

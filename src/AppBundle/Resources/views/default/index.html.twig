@@ -6,16 +6,37 @@
         <h2>My Connections</h2>
     </div>
     {% if connections %}
-        {%  for service in connections %}
-            <div class="connected-connections border-top row {{ service.getMachineName }}">
+        {%  for connection in connections %}
+            <div class="connected-connections border-top row {{ connection.display_name }}">
                 <div class="connection-logo">
                     <div class="logo-container">
-                        <img src="{{ service.getLogo }}"/>
+                        <img src="{{ connection.logo }}"/>
                     </div>
                 </div>
-                <div class="connection-description"><p>{{ service.getDescription }}</p></div>
+                <div class="connection-description">
+                    <div class="connection-created">
+                        <span class="established_at header">Connection made</span><br/>
+                        {{ connection.established_at|date("m/d/Y") }}
+                    </div>
+                    <div class="connection-info">
+                        <p>
+                            <span class="eduPPN header">Name</span><br/>
+                            {{ connection.username }}
+                        </p>
+                        <p>
+                            <span class="cuid header">{{ connection.display_name }}</span><br/>
+                            {{ connection.connection_id }}
+                        </p>
+                    </div>
+                    <div class="connection-status">
+                        <p>
+                            <span class="status header">Status</span><br/>
+                            Connected
+                        </p>
+                    </div>
+                </div>
                 <div class="connection-button">
-                    <a class="btn connect connected" href="#">Connect</a>
+                    <a class="btn connect disconnect" href="{{ url(connection.route_disconnect) }}">Disconnect</a>
                 </div>
             </div>
         {% endfor %}

@@ -101,6 +101,33 @@ class OrcidController extends Controller
     }
 
     /**
+     * Orcid OAuth disconnect request.
+     *
+     * @Route("/orcid/disconnect", name="orcid_disconnect")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function disconnectAction(Request $request)
+    {
+        if (!$this->isLoggedIn()) {
+            return $this->redirectToRoute('index');
+        }
+
+        $connection = new Connection();
+        $connection->setService('orcid');
+        $connection->setUid($this->get('app.user')->get('eduPPN'));
+
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($connection);
+            $em->flush();
+        } catch (DBALException $e) {
+
+        }
+
+        return $this->redirectToRoute('index');
+    }
+
+    /**
      * @return bool
      */
     private function isLoggedIn()

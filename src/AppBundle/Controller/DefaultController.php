@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Connection;
+use AppBundle\Connections\Service;
 
 /**
  * Class DefaultController
@@ -34,24 +35,29 @@ class DefaultController extends Controller
         }
 
         if ($user->has('eduPPN')) {
+            $uid = $user->get('eduPPN');
 
             $connected = $this->getDoctrine()
                 ->getRepository('AppBundle:Connection')
                 ->findAll(
                     [
-                        'uid' => $user->get('eduPPN')
+                        'uid' => $uid
                     ]
                 );
 
             /** @var Connection $c */
             foreach ($connected as $c) {
-                $user->set($c->getService(), $c->getCuid());
                 try {
-                    // Try to load the service.
-                    $connections[] = $this->get(
-                        'app.service.' .
-                        $c->getService()
-                    );
+                    /** @var Service $service */
+                    $service = $this->get('app.service.' . $c->getService());
+                    $dto = $this->get('app.service.factory')
+                        ->createDto(
+                            $service,
+                            $uid,
+                            $c->getCuid(),
+                            $c->getEstablishedAt()
+                        );
+                    $connections[] = $dto;
                 } catch(\Exception $e) {
                     $this->get('logger')
                         ->addError(

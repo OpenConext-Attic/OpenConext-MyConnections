@@ -41,6 +41,9 @@ services:
         calls:
             - [setName, ['user']]
 
+    app.service.factory:
+        class: AppBundle\Connections\ServiceFactory
+
     app.service.orcid:
         class: AppBundle\Connections\Service
         factory: [ 'AppBundle\Connections\ServiceFactory', 'create' ]
@@ -55,6 +58,7 @@ services:
               are not unique, they can change (such as with marriage), have cultural differences in name order,
               contain inconsistent use of first-name abbreviations and employ different writing systems.
             - 'orcid_authorize'
+            - 'orcid_disconnect'
             - @app.user
 
     app.guzzle:

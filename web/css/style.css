@@ -390,4 +390,24 @@ div.page-container {
     text-decoration: none;
     background-color: #0069A1; }
 
+.connected-connections .connection-description > div {
+  padding: 10px 0;
+  vertical-align: top;
+  display: block; }
+  @media (min-width: 46.25em) {
+    .connected-connections .connection-description > div {
+      display: inline-block;
+      padding: 0 20px; } }
+  .connected-connections .connection-description > div span.header {
+    color: #707173; }
+  .connected-connections .connection-description > div p {
+    padding-bottom: 10px; }
+
+@media (min-width: 46.25em) {
+  .connected-connections .connection-info {
+    width: 40%; } }
+
+.connected-connections .connection-status {
+  color: #04BB48; }
+
 /*# sourceMappingURL=style.css.map */

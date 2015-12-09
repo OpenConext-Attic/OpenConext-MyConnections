@@ -218,3 +218,32 @@ div.page-container {
     background-color: $darkblue;
   }
 }
+
+.connected-connections {
+  .connection-description > div {
+    padding: 10px 0;
+    vertical-align: top;
+    display: block;
+
+    @include mq($from: tablet) {
+      display: inline-block;
+      padding: 0 20px;
+    }
+
+    span.header {
+      color: $gray;
+    }
+    p {
+      padding-bottom: 10px;
+    }
+  }
+
+  @include mq($from: tablet) {
+    .connection-info {
+      width: 40%;
+    }
+  }
+  .connection-status {
+    color: $green;
+  }
+}

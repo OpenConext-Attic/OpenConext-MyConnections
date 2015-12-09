@@ -31,7 +31,12 @@ class Service
     /**
      * @var string
      */
-    protected $route;
+    protected $route_connect;
+    /**
+     * @var
+     */
+    protected $route_disconnect;
+
     /**
      * @var NamespacedAttributeBag
      */
@@ -102,22 +107,6 @@ class Service
     }
 
     /**
-     * @return string
-     */
-    public function getRoute()
-    {
-        return $this->route;
-    }
-
-    /**
-     * @param string $route
-     */
-    public function setRoute($route)
-    {
-        $this->route = $route;
-    }
-
-    /**
      * @return NamespacedAttributeBag
      */
     public function getUser()
@@ -131,5 +120,37 @@ class Service
     public function setUser(NamespacedAttributeBag $user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRouteDisconnect()
+    {
+        return $this->route_disconnect;
+    }
+
+    /**
+     * @param mixed $route_disconnect
+     */
+    public function setRouteDisconnect($route_disconnect)
+    {
+        $this->route_disconnect = $route_disconnect;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRouteConnect()
+    {
+        return $this->route_connect;
+    }
+
+    /**
+     * @param string $route_connect
+     */
+    public function setRouteConnect($route_connect)
+    {
+        $this->route_connect = $route_connect;
     }
 }
