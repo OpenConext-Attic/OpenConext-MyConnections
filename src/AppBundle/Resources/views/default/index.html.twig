@@ -5,11 +5,27 @@
     <div class="content-title row">
         <h2>My Connections</h2>
     </div>
-    <div class="my-connections border-top row">
-        <h3>It seems you have no connections yet, why should you make some?</h3>
-        <p>Because when you do, the attribute authority is used by OpenConext to enrich your existing attributes with connection.
-            Services connected to OpenConext will be able to use your connections.</p>
-    </div>
+    {% if connections %}
+        {%  for service in connections %}
+            <div class="connected-connections border-top row {{ service.getMachineName }}">
+                <div class="connection-logo">
+                    <div class="logo-container">
+                        <img src="{{ service.getLogo }}"/>
+                    </div>
+                </div>
+                <div class="connection-description"><p>{{ service.getDescription }}</p></div>
+                <div class="connection-button">
+                    <a class="btn connect connected" href="#">Connect</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="my-connections border-top row">
+            <h3>It seems you have no connections yet, why should you make some?</h3>
+            <p>Because when you do, the attribute authority is used by OpenConext to enrich your existing attributes with connection.
+                Services connected to OpenConext will be able to use your connections.</p>
+        </div>
+    {% endif %}
     <div class="content-subtitle border-top row">
         <h3>Available connections</h3>
     </div>
