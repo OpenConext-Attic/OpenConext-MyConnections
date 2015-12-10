@@ -7,7 +7,7 @@ var service = (function () {
 
     my.showModal = function (button) {
         var modal = '#modal-' + button.attr('data-service');
-        jQuery().show(modal);
+        jQuery(modal).show();
     };
 
     my.init = function() {
