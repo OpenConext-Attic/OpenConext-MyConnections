@@ -61,5 +61,10 @@ services:
             - 'orcid_disconnect'
             - @app.user
 
+    app.service.repository:
+        class: AppBundle\Connections\Repository
+        calls:
+            - [ addConnection, [ '@app.service.orcid' ] ]
+
     app.guzzle:
         class: GuzzleHttp\Client

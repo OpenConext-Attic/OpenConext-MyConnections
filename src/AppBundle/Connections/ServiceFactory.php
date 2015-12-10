@@ -67,4 +67,21 @@ class ServiceFactory
         );
         return $dto;
     }
+
+    /**
+     * @param Repository $repository
+     * @param string $username
+     * @param string $connection_id
+     * @param string $established_at
+     * @return array
+     */
+    public function createDtos(Repository $repository, $username, $connection_id, $established_at)
+    {
+        $dtos = [];
+        foreach ($repository->getAvailableConnections() as $connection)
+        {
+            $dtos[] = $this->createDto($connection, $username, $connection_id, $established_at);
+        }
+        return $dtos;
+    }
 }

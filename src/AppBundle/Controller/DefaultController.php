@@ -21,6 +21,8 @@ class DefaultController extends Controller
     {
         $connections = [];
 
+        $repository = $this->get('app.service.repository');
+
         $user = $this->get('app.user');
         if (!$user->has('nameId')) {
             return $this->redirectToRoute('login');
@@ -58,6 +60,7 @@ class DefaultController extends Controller
                             $c->getEstablishedAt()
                         );
                     $connections[] = $dto;
+                    $repository->removeConnection($c->getService());
                 } catch(\Exception $e) {
                     $this->get('logger')
                         ->addError(
@@ -69,11 +72,21 @@ class DefaultController extends Controller
             }
         }
 
+        $available_connections =
+            $this->get('app.service.factory')
+                ->createDtos(
+                    $repository,
+                    NULL,
+                    NULL,
+                    NULL
+                );
+
         return $this->render(
             'AppBundle:default:index.html.twig',
             [
                 'name' => $name,
-                'connections' => $connections
+                'connections' => $connections,
+                'available_connections' => $available_connections
             ]
         );
     }
@@ -87,10 +100,23 @@ class DefaultController extends Controller
      */
     public function loginAction(Request $request)
     {
+        $repository = $this->get('app.service.repository');
+
+        $available_connections =
+            $this->get('app.service.factory')
+                ->createDtos(
+                    $repository,
+                    NULL,
+                    NULL,
+                    NULL
+                );
+
         return $this->render(
             'AppBundle:default:login.html.twig',
             [
-                'name' => 'Guest'
+                'name' => 'Guest',
+                'connections' => [],
+                'available_connections' => $available_connections
             ]
         );
     }
@@ -118,10 +144,23 @@ class DefaultController extends Controller
      */
     public function authErrorAction(Request $request)
     {
+        $repository = $this->get('app.service.repository');
+
+        $available_connections =
+            $this->get('app.service.factory')
+                ->createDtos(
+                    $repository,
+                    NULL,
+                    NULL,
+                    NULL
+                );
+
         return $this->render(
             'AppBundle:default:auth_error.html.twig',
             [
-                'name' => 'Guest'
+                'name' => 'Guest',
+                'connections' => [],
+                'available_connections' =>  $available_connections
             ]
         );
     }

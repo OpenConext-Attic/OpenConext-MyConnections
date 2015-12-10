@@ -58,6 +58,10 @@ class OrcidController extends Controller
         // Did we get an Oauth token?
         $code = $request->get('code', NULL);
         if (NULL === $code || empty($code)) {
+            $this->get('logger')
+                ->addError(
+                  'Did not get OAuth token from authorize endpoint.'
+                );
             return $this->redirectToRoute('auth_error');
         }
 
@@ -79,6 +83,11 @@ class OrcidController extends Controller
 
         // Authentication error?
         if ($response->getStatusCode() !== 200) {
+            $this->get('logger')
+                ->addError(
+                    'Received responsecode ' . $response->getStatusCode() .
+                    ' from oricid token endpoint'
+                );
             return $this->redirectToRoute('auth_error');
         }
 
@@ -88,13 +97,18 @@ class OrcidController extends Controller
         $connection->setService('orcid');
         $connection->setCuid($data->orcid);
         $connection->setUid($this->get('app.user')->get('eduPPN'));
+        $connection->setEstablishedAt(new \DateTime());
 
         try {
             $em = $this->getDoctrine()->getManager();
             $em->persist($connection);
             $em->flush();
         } catch (DBALException $e) {
-            $this->get('logger')->addError('Unable to save ORCID id with message ' . $e->getMessage());
+            $this->get('logger')
+                ->addError(
+                    'Unable to save ORCID id with message ' .
+                    $e->getMessage()
+                );
             return $this->redirectToRoute('auth_error');
         }
         return $this->redirectToRoute('index');
@@ -112,16 +126,26 @@ class OrcidController extends Controller
             return $this->redirectToRoute('index');
         }
 
-        $connection = new Connection();
-        $connection->setService('orcid');
-        $connection->setUid($this->get('app.user')->get('eduPPN'));
+        $connection = $this->getDoctrine()
+            ->getRepository('AppBundle:Connection')
+            ->find(
+                [
+                    'service' => 'orcid',
+                    'uid' => $this->get('app.user')->get('eduPPN')
+                ]
+            );
 
         try {
             $em = $this->getDoctrine()->getManager();
             $em->remove($connection);
             $em->flush();
         } catch (DBALException $e) {
-
+            $this->get('logger')
+                ->addError(
+                    'Unable to remove connection for user ' .
+                    $this->get('app.user')->get('eduPPN') .
+                    ' and service orcid'
+                );
         }
 
         return $this->redirectToRoute('index');

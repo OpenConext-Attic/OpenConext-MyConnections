@@ -62,7 +62,7 @@ class Connection
      * )
      * @Expose()
      */
-    protected $established_at = 'CURRENT_TIMESTAMP';
+    protected $established_at;
 
     /**
      * @return string

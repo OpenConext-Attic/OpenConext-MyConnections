@@ -3,8 +3,11 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Connection;
 use AppBundle\Form\ConnectionType;
+
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Controller\FOSRestController;
+
+use Doctrine\DBAL\DBALException;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
