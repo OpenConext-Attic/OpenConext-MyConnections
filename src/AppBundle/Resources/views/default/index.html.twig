@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="connection-button">
-                    <a class="btn connect disconnect" href="{{ url(connection.route_disconnect) }}">Disconnect</a>
+                    <a class="btn connect throbber disconnect" href="{{ url(connection.route_disconnect) }}">Disconnect</a>
                 </div>
             </div>
         {% endfor %}
@@ -54,6 +54,35 @@
         </div>
         {% for service in available_connections %}
             {# @var service \AppBundle\DTO\Connection #}
+            <div id="modal-{{ service.machine_name }}" class="modal login-modal" style="display: none;">
+                <div class="modal-fade-screen">
+                    <div class="modal-inner two-column" style="width: 70%;">
+                        <div class="left-column">
+                            <img src="{{ service.logo }}"/>
+                        </div>
+                        <div class="right-column">
+                            <h2>Add {{ service.display_name }} to OpenConext</h2>
+                            <p class="modal-content left">
+                            <span class="openconext-login-checked">
+                                <i class="fa fa-check green"></i> We already know your OpenConext login
+                            </span>
+                                You will be forwarded to {{ service.display_name }} in order to login and
+                                link your {{ service.display_name }} account to OpenConext.<br/>
+                                <br/>
+                                <a href="{{  url(service.route_connect) }}" class="btn connect throbber">Connect</a><br/>
+                                <i class="fa fa-check-square-o"></i> I allow OpenConext to use my login information.<br/>
+                                <br/>
+                            <h4>How do you know my logins?</h4>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="available-connections border-top row {{ service.machine_name }}">
                 <div class="connection-logo">
                     <div class="logo-container">
@@ -64,7 +93,7 @@
                     <p>{{ service.description }}</p>
                 </div>
                 <div class="connection-button">
-                    <a class="btn connect" href="{{ url(service.route_connect) }}">Connect</a>
+                    <a data-service="{{ service.machine_name }}" class="btn connect" href="#">Connect</a>
                 </div>
             </div>
         {% endfor %}

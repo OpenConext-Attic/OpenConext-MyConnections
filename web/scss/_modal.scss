@@ -50,7 +50,7 @@
 
   .modal-inner {
     @include transition(opacity 0.25s ease);
-    background: $modal-background;
+    background-color: $white;
     border-radius: $base-border-radius;
     margin-top: 0;
     margin: auto;
@@ -63,15 +63,18 @@
 
     h1 {
       color: $base-font-color;
-      margin-bottom: 0 0 0.6em 0;
+      margin-bottom: 0.6em;
       text-align: left;
       text-transform: capitalize;
     }
 
     p {
-      text-align: center;
       color: $base-font-color;
       line-height: $base-line-height;
+
+      .btn.connect {
+        margin: 10px 0;
+      }
     }
 
     .modal-intro {
@@ -93,8 +96,26 @@
       }
     }
   }
+
+  .two-column {
+    .left-column {
+      width: 40%;
+      height: 100%;
+      float:left;
+      padding: 10px 30px;
+
+    }
+    .right-column {
+      width: 60%;
+      height: 100%;
+      float: left;
+      padding: 10px 30px;
+      border-left: 1px solid $light-gray;
+    }
+  }
 }
 
 .modal-open {
   overflow: hidden;
 }
+

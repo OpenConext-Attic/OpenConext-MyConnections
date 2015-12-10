@@ -52,6 +52,11 @@ class DefaultController extends Controller
                 try {
                     /** @var Service $service */
                     $service = $this->get('app.service.' . $c->getService());
+
+                    // Remove service from available services
+                    // since its already connected!
+                    $repository->removeConnection($c->getService());
+
                     $dto = $this->get('app.service.factory')
                         ->createDto(
                             $service,
@@ -60,7 +65,7 @@ class DefaultController extends Controller
                             $c->getEstablishedAt()
                         );
                     $connections[] = $dto;
-                    $repository->removeConnection($c->getService());
+
                 } catch(\Exception $e) {
                     $this->get('logger')
                         ->addError(

@@ -2,7 +2,8 @@
 $black: #000;
 $white: #fff;
 $gray: #707173;
-$lightgrey: #a9a9a9;
+$lightgray: #a9a9a9;
+$light-gray: #ddd;
 $blue: #4db2cf;
 $darkblue: #0069A1;
 $red: #e9292c;
@@ -60,7 +61,7 @@ a {
   }
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   font-size: 16px;
   font-weight: 600;
   margin: 0px;

@@ -144,6 +144,17 @@ div.page-container {
   }
 }
 
+.green {
+  color: $green;
+}
+
+.left {
+  text-align: left;
+}
+.centered {
+  text-align: center;
+}
+
 .row {
 
   @extend %clearfix;
@@ -210,9 +221,13 @@ div.page-container {
     background-color: $blue;
   }
   &.disconnect {
-    background-color: $lightgrey;
+    background-color: $lightgray;
   }
 
+  &.disconnect:hover {
+    text-decoration: none;
+    background-color: $gray;
+  }
   &:hover {
     text-decoration: none;
     background-color: $darkblue;
@@ -246,4 +261,12 @@ div.page-container {
   .connection-status {
     color: $green;
   }
+}
+
+.openconext-login-checked {
+  display: block;
+  border-top: 1px solid $light-gray;
+  border-bottom: 1px solid $light-gray;
+  padding: 5px 0;
+  margin: 15px 0;
 }
