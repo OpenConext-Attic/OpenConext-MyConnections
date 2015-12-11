@@ -24,7 +24,7 @@ class DefaultController extends Controller
         $repository = $this->get('app.service.repository');
 
         $user = $this->get('app.user');
-        if ($user->isLoggedIn()) {
+        if (!$user->isLoggedIn()) {
             return $this->redirectToRoute('login');
         }
 
@@ -49,7 +49,7 @@ class DefaultController extends Controller
                 $dto = $this->get('app.service.factory')
                     ->createDto(
                         $service,
-                        $user->getUid(),
+                        $user->getUsername(),
                         $c->getCuid(),
                         $c->getEstablishedAt()
                     );

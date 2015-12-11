@@ -18,7 +18,7 @@ class User extends NamespacedAttributeBag
     public function isLoggedIn()
     {
         $nameId = $this->get('nameId', NULL);
-        return (NULL !== $nameId);
+        return (!empty($nameId));
     }
 
     /**
@@ -38,10 +38,17 @@ class User extends NamespacedAttributeBag
      */
     public function getUid()
     {
-        if ($this->get('eduPPN', FALSE)) {
-            $ppn = $this->get('eduPPN');
-            return hash('sha512', $ppn);
-        }
-        return FALSE;
+        return hash(
+            'sha512',
+            $this->get('eduPPN')
+        );
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getUsername()
+    {
+        return $this->get('eduPPN');
     }
 }
