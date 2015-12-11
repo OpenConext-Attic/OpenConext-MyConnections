@@ -71,11 +71,11 @@ class SamlController extends Controller
 
         try {
             $nameId = $assertion->getNameId();
-            $displayName = $this->getAtribute(
+            $displayName = $this->getAttribute(
                 $aSet,
                 $this->get('saml.attribute.displayname')
             );
-            $eduPPN = $this->getAtribute(
+            $eduPPN = $this->getAttribute(
                 $aSet,
                 $this->get('saml.attribute.edupersonprincipalname')
             );
@@ -106,13 +106,14 @@ class SamlController extends Controller
      * @param AttributeSet $attributeSet
      * @param AttributeDefinition $attributeDefinition
      * @return null|\Surfnet\SamlBundle\SAML2\Attribute\Attribute
+     * @throws Exception
      */
-    private function getAtribute(AttributeSet $attributeSet, AttributeDefinition $attributeDefinition)
+    private function getAttribute(AttributeSet $attributeSet, AttributeDefinition $attributeDefinition)
     {
-        if ($attributeSet->containsAttributeDefinedBy($attributeDefinition))
+        if (!$attributeSet->containsAttributeDefinedBy($attributeDefinition))
         {
-            return $attributeSet->getAttributeByDefinition($attributeDefinition)->getValue();
+            throw new \Exception('Attribute not found.');
         }
-        return NULL;
+        return $attributeSet->getAttributeByDefinition($attributeDefinition)->getValue();
     }
 }

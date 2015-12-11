@@ -25,7 +25,7 @@ class OrcidController extends Controller
      */
     public function authorizeAction(Request $request)
     {
-        if (!$this->isLoggedIn()) {
+        if (!$this->get('app.user')->isLoggedIn()) {
             return $this->redirectToRoute('index');
         }
 
@@ -51,7 +51,7 @@ class OrcidController extends Controller
      */
     public function consumeAction(Request $request)
     {
-        if (!$this->isLoggedIn()) {
+        if (!$this->get('app.user')->isLoggedIn()) {
             return $this->redirectToRoute('index');
         }
 
@@ -96,7 +96,9 @@ class OrcidController extends Controller
         $connection = new Connection();
         $connection->setService('orcid');
         $connection->setCuid($data->orcid);
-        $connection->setUid($this->get('app.user')->get('eduPPN'));
+        $connection->setUid(
+            $this->get('app.user')
+                ->getUid());
         $connection->setEstablishedAt(new \DateTime());
 
         try {
@@ -122,7 +124,7 @@ class OrcidController extends Controller
      */
     public function disconnectAction(Request $request)
     {
-        if (!$this->isLoggedIn()) {
+        if (!$this->get('app.user')->isLoggedIn()) {
             return $this->redirectToRoute('index');
         }
 
@@ -131,7 +133,7 @@ class OrcidController extends Controller
             ->find(
                 [
                     'service' => 'orcid',
-                    'uid' => $this->get('app.user')->get('eduPPN')
+                    'uid' => $this->get('app.user')->getUid()
                 ]
             );
 
@@ -143,19 +145,11 @@ class OrcidController extends Controller
             $this->get('logger')
                 ->addError(
                     'Unable to remove connection for user ' .
-                    $this->get('app.user')->get('eduPPN') .
+                    $this->get('app.user')->getUid() .
                     ' and service orcid'
                 );
         }
 
         return $this->redirectToRoute('index');
-    }
-
-    /**
-     * @return bool
-     */
-    private function isLoggedIn()
-    {
-        return ($this->get('app.user')->has('nameId'));
     }
 }

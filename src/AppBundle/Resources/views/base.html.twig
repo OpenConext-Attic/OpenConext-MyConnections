@@ -43,7 +43,6 @@
             </div>
             <div class="page-buttons">
                 <div class="logout"><a href="{{ url('logout') }}">Logout</a></div>
-                <div class="help"><a href="#">help</a></div>
                 <div class="language">
                     <div class="switch-toggle switch-candy">
                         <input id="nl" name="view" type="radio" checked>
@@ -53,13 +52,12 @@
                         <a></a>
                     </div>
                 </div>
-                <div class="loginname">Welcome, <a href="#">{{ name }}</a></div>
+                <div class="loginname">Welcome, {{ name }}</div>
             </div>
         </div>
         <nav>
             <ul>
                 <li>My Connections</li>
-                <li>Info</li>
             </ul>
         </nav>
     </header>

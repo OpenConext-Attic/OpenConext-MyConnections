@@ -5,7 +5,7 @@ services:
         arguments: [ 'app' ]
 
     app.user:
-        class: Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag
+        class: AppBundle\Security\User
         factory: [ '@session', 'getBag' ]
         arguments: [ 'user' ]
 
@@ -34,7 +34,7 @@ services:
 
     app.user.session.namespaced_attribute_bag:
         public: false
-        class: Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag
+        class: AppBundle\Security\User
         arguments:
             - '__app__'
             - '/'

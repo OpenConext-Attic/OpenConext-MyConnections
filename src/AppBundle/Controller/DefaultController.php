@@ -24,56 +24,44 @@ class DefaultController extends Controller
         $repository = $this->get('app.service.repository');
 
         $user = $this->get('app.user');
-        if (!$user->has('nameId')) {
+        if ($user->isLoggedIn()) {
             return $this->redirectToRoute('login');
         }
 
-        // Default name...
-        $nameId = $user->get('nameId');
-        $name = $nameId['Value'];
+        $connected = $this->getDoctrine()
+            ->getRepository('AppBundle:Connection')
+            ->findAll(
+                [
+                    'uid' => $user->getUid()
+                ]
+            );
 
-        if ($user->has('displayName')) {
-            $name = $user->get('displayName');
-        }
+        /** @var Connection $c */
+        foreach ($connected as $c) {
+            try {
+                /** @var Service $service */
+                $service = $this->get('app.service.' . $c->getService());
 
-        if ($user->has('eduPPN')) {
-            $uid = $user->get('eduPPN');
+                // Remove service from available services
+                // since its already connected!
+                $repository->removeConnection($c->getService());
 
-            $connected = $this->getDoctrine()
-                ->getRepository('AppBundle:Connection')
-                ->findAll(
-                    [
-                        'uid' => $uid
-                    ]
-                );
+                $dto = $this->get('app.service.factory')
+                    ->createDto(
+                        $service,
+                        $user->getUid(),
+                        $c->getCuid(),
+                        $c->getEstablishedAt()
+                    );
+                $connections[] = $dto;
 
-            /** @var Connection $c */
-            foreach ($connected as $c) {
-                try {
-                    /** @var Service $service */
-                    $service = $this->get('app.service.' . $c->getService());
-
-                    // Remove service from available services
-                    // since its already connected!
-                    $repository->removeConnection($c->getService());
-
-                    $dto = $this->get('app.service.factory')
-                        ->createDto(
-                            $service,
-                            $uid,
-                            $c->getCuid(),
-                            $c->getEstablishedAt()
-                        );
-                    $connections[] = $dto;
-
-                } catch(\Exception $e) {
-                    $this->get('logger')
-                        ->addError(
-                            'Service ' .
-                            $c->getService() .
-                            ' unavailable'
-                        );
-                }
+            } catch(\Exception $e) {
+                $this->get('logger')
+                    ->addError(
+                        'Service ' .
+                        $c->getService() .
+                        ' unavailable'
+                    );
             }
         }
 
@@ -89,7 +77,7 @@ class DefaultController extends Controller
         return $this->render(
             'AppBundle:default:index.html.twig',
             [
-                'name' => $name,
+                'name' => $user->getDisplayName(),
                 'connections' => $connections,
                 'available_connections' => $available_connections
             ]
