@@ -4,11 +4,11 @@
 <div class="modal login-modal">
     <div class="modal-fade-screen">
         <div class="modal-inner">
-            <h1>Authentication error</h1>
+            <h1>{% trans %}auth_error{% endtrans %}</h1>
             <p class="modal-content">
-                Unfortunately there was an authentication error. Please try again.
+                {% trans %}auth_error_msg{% endtrans %}
                 <br/>
-                <a href="{{  url('index') }}" class="btn connect">Home</a>
+                <a href="{{  url('index') }}" class="btn connect">{% trans %}home{% endtrans %}</a>
             </p>
         </div>
     </div>

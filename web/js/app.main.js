@@ -31,5 +31,14 @@ var service = (function () {
 }());
 
 jQuery(function() {
-   service.init();
+    service.init();
+
+    // Language toggle.
+    jQuery('label.language_toggle')
+        .each(function(index, toggle) {
+            jQuery(toggle).on('click', function() {
+                var locale = jQuery(this).attr('data-locale');
+                window.location.href = window.location.pathname + '?_lng=' + locale;
+            });
+        });
 });

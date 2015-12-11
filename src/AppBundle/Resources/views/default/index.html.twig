@@ -3,7 +3,7 @@
 {% block body %}
 <div class="content">
     <div class="content-title row">
-        <h2>My Connections</h2>
+        <h2>{% trans %}my_connections{% endtrans %}</h2>
     </div>
     {% if connections|length > 0 %}
         {%  for connection in connections %}
@@ -16,12 +16,12 @@
                 </div>
                 <div class="connection-description">
                     <div class="connection-created">
-                        <span class="established_at header">Connection made</span><br/>
+                        <span class="established_at header">{% trans %}connection_made{% endtrans %}</span><br/>
                         {{ connection.established_at|date("m/d/Y") }}
                     </div>
                     <div class="connection-info">
                         <p>
-                            <span class="eduPPN header">Name</span><br/>
+                            <span class="eduPPN header">{% trans %}name{% endtrans %}</span><br/>
                             {{ connection.username }}
                         </p>
                         <p>
@@ -31,26 +31,25 @@
                     </div>
                     <div class="connection-status">
                         <p>
-                            <span class="status header">Status</span><br/>
-                            Connected
+                            <span class="status header">{% trans %}status{% endtrans %}</span><br/>
+                            {% trans %}connected{% endtrans %}
                         </p>
                     </div>
                 </div>
                 <div class="connection-button">
-                    <a class="btn connect throbber disconnect" href="{{ url(connection.route_disconnect) }}">Disconnect</a>
+                    <a class="btn connect throbber disconnect" href="{{ url(connection.route_disconnect) }}">{% trans %}disconnect{% endtrans %}</a>
                 </div>
             </div>
         {% endfor %}
     {% else %}
         <div class="my-connections border-top row">
-            <h3>It seems you have no connections yet, why should you make some?</h3>
-            <p>Because when you do, the attribute authority is used by OpenConext to enrich your existing attributes with connection.
-                Services connected to OpenConext will be able to use your connections.</p>
+            <h3>{% trans %}no_connections_yet{% endtrans %}</h3>
+            <p>{% trans %}no_connections_yet_desc{% endtrans %}</p>
         </div>
     {% endif %}
     {% if available_connections|length > 0 %}
         <div class="content-subtitle border-top row">
-            <h3>Available connections</h3>
+            <h3>{% trans %}available_connections{% endtrans %}</h3>
         </div>
         {% for service in available_connections %}
             {# @var service \AppBundle\DTO\Connection #}
@@ -61,23 +60,18 @@
                             <img src="{{ service.logo }}"/>
                         </div>
                         <div class="right-column">
-                            <h2>Add {{ service.display_name }} to OpenConext</h2>
+                            <h2>{{ "add_to_openconext"|trans|format(service.display_name) }}</h2>
                             <p class="modal-content left">
                             <span class="openconext-login-checked">
-                                <i class="fa fa-check green"></i> We already know your OpenConext login
+                                <i class="fa fa-check green"></i> {% trans %}known_login{% endtrans %}
                             </span>
-                                You will be forwarded to {{ service.display_name }} in order to login and
-                                link your {{ service.display_name }} account to OpenConext.<br/>
+                                {{ "connect_explanation"|trans|format(service.display_name, service.display_name) }}<br/>
                                 <br/>
-                                <a href="{{  url(service.route_connect) }}" class="btn connect throbber">Connect</a><br/>
-                                <i class="fa fa-check-square-o"></i> I allow OpenConext to use my login information.<br/>
+                                <a href="{{  url(service.route_connect) }}" class="btn connect throbber">{% trans %}connect{% endtrans %}</a><br/>
+                                <i class="fa fa-check-square-o"></i> {% trans %}permission_to_connect{% endtrans %}<br/>
                                 <br/>
-                            <h4>How do you know my logins?</h4>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <h4>{% trans %}how_do_you_know_my_logins{% endtrans %}</h4>
+                            {% trans %}how_do_you_know_my_logins_desc{% endtrans %}
                             </p>
                         </div>
                     </div>
@@ -93,14 +87,14 @@
                     <p>{{ service.description }}</p>
                 </div>
                 <div class="connection-button">
-                    <a data-service="{{ service.machine_name }}" class="btn connect" href="#">Connect</a>
+                    <a data-service="{{ service.machine_name }}" class="btn connect" href="#">{% trans %}connect{% endtrans %}</a>
                 </div>
             </div>
         {% endfor %}
     {% endif %}
     <div class="content-footer border-top row">
-        <h3>Missing connections?</h3>
-        <p><a href="#">Send us a request</a></p>
+        <h3>{% trans %}missing_connections{% endtrans %}</h3>
+        <p><a href="#">{% trans %}send_us_a_request{% endtrans %}</a></p>
     </div>
 </div>
 {% endblock %}

@@ -1,0 +1,37 @@
+welcome: Welkom
+logout: Uitloggen
+my_connections: Mijn Connections
+missing_connections: Mis je een connectie?
+send_us_a_request: Stuur ons een verzoek
+connect: Verbind
+disconnect: Verbreek
+connection_made: Verbonden sinds
+name: Naam
+status: Status
+connected: Verbonden
+auth_error: Authenticatie fout
+auth_error_msg: Helaas is er een fout opgetreden. Probeer het opnieuw
+home: Home
+login: Inloggen
+login_msg: Log aub in op Open-Conext om verder te gaan.
+login_to_openconext: Login bij Open-Conext
+no_connections_yet: Je hebt nog geen connecties. Waarom moet je deze maken?
+no_connections_yet_desc: Because when you do, the attribute authority is used by OpenConext to enrich your existing attributes with connection. Services connected to OpenConext will be able to use your connections.
+available_connections: Beschikbare connections
+known_login: Je Open-Conext login is al bekend.
+add_to_openconext: Voeg %s toe aan Open-Conext
+permission_to_connect: Ik geef toestemmin om mijn OpenConext login te gebruiken.
+how_do_you_know_my_logins: Hoe ken je mijn login?
+how_do_you_know_my_logins_desc: |
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+  laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+  voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+  cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+connect_explanation: You will be forwarded to %s in order to login and link your %s account to OpenConext.
+service_orcid_description: |
+  <span class="service">ORCID</span> is a nonproprietary alphanumeric code to uniquely identify scientific
+  and other academic authors. This addresses the problem that a particular author's contributions to the
+  scientific literature or publications in the humanities can be hard to recognize as most personal names
+  are not unique, they can change (such as with marriage), have cultural differences in name order,
+  contain inconsistent use of first-name abbreviations and employ different writing systems.

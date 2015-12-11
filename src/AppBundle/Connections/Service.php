@@ -9,6 +9,7 @@
 namespace AppBundle\Connections;
 
 use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
+use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class Service
 {
@@ -27,10 +28,6 @@ class Service
     /**
      * @var string
      */
-    protected $description;
-    /**
-     * @var string
-     */
     protected $route_connect;
     /**
      * @var
@@ -41,6 +38,20 @@ class Service
      * @var NamespacedAttributeBag
      */
     protected $user;
+
+    /**
+     * @var Container
+     */
+    protected $container;
+
+    /**
+     * Service constructor.
+     * @param Container $container
+     */
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
 
     /**
      * @return string
@@ -95,15 +106,13 @@ class Service
      */
     public function getDescription()
     {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
+        return $this->container
+            ->get('translator')
+                ->trans(
+                    'service_' .
+                    $this->getMachineName() .
+                    '_description'
+                );
     }
 
     /**

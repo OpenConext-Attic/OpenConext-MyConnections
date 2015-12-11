@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="/css/toggle-switch.css" type="text/css">
     <script type="application/javascript" src="//code.jquery.com/jquery-git2.min.js"></script>
     <script type="application/javascript" src="/js/app.main.js"></script>
-    <title>My Connections</title>
+    <title>{% trans %}my_connections{% endtrans %}</title>
 </head>
 <body>
 <div class="header-container">
@@ -39,25 +39,24 @@
                 <img src="/images/SURF_conext_WEB.png" alt="SURFnet"/>
             </div>
             <div class="page-title">
-                <h1>My Connections</h1>
+                <h1>{% trans %}my_connections{% endtrans %}</h1>
             </div>
             <div class="page-buttons">
-                <div class="logout"><a href="{{ url('logout') }}">Logout</a></div>
+                <div class="logout"><a href="{{ url('logout') }}">{% trans %}logout{% endtrans %}</a></div>
                 <div class="language">
                     <div class="switch-toggle switch-candy">
-                        <input id="nl" name="view" type="radio" checked>
-                        <label for="nl" onclick="">NL</label>
-                        <input id="en" name="view" type="radio">
-                        <label for="en" onclick="">EN</label>
-                        <a></a>
+                        <input id="nl" name="view" type="radio"{% if app.request.getLocale() == "nl" %} checked{% endif %}>
+                        <label data-locale="nl" class="language_toggle" for="nl">NL</label>
+                        <input id="en" name="view" type="radio"{% if app.request.getLocale() == "en" %} checked{% endif %}>
+                        <label data-locale="en" class="language_toggle" for="en">EN</label>
                     </div>
                 </div>
-                <div class="loginname">Welcome, {{ name }}</div>
+                <div class="loginname">{% trans %}welcome{% endtrans %}, {{ name }}</div>
             </div>
         </div>
         <nav>
             <ul>
-                <li>My Connections</li>
+                <li>{% trans %}my_connections{% endtrans %}</li>
             </ul>
         </nav>
     </header>

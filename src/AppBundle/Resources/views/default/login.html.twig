@@ -4,11 +4,11 @@
 <div class="modal login-modal">
     <div class="modal-fade-screen">
         <div class="modal-inner" style="width: 50%;">
-            <h1>Login</h1>
+            <h1>{% trans %}login{% endtrans %}</h1>
             <p class="modal-content centered">
-                Please login to Open-Conext in order to proceed.<br/>
+                {% trans %}login_msg{% endtrans %}<br/>
                 <br/>
-                <a href="{{  url('saml_auth') }}" class="btn connect">Login to Open-Conext</a>
+                <a href="{{  url('saml_auth') }}" class="btn connect">{% trans %}login_to_openconext{% endtrans %}</a>
             </p>
         </div>
     </div>

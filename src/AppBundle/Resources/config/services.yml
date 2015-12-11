@@ -14,6 +14,12 @@ services:
         arguments:
             - @app.saml.session
 
+    app.locale_listener:
+        class: AppBundle\EventListener\LocaleListener
+        arguments: ["%kernel.default_locale%"]
+        tags:
+            - { name: kernel.event_subscriber }
+
     app.interactionprovider:
         class: AppBundle\Security\Authentication\SamlInteractionProvider
         arguments:
@@ -41,6 +47,10 @@ services:
         calls:
             - [setName, ['user']]
 
+    app.connections.service:
+        class: AppBundle\Connections\Service
+        arguments: ['@service_container']
+
     app.service.factory:
         class: AppBundle\Connections\ServiceFactory
 
@@ -48,15 +58,10 @@ services:
         class: AppBundle\Connections\Service
         factory: [ 'AppBundle\Connections\ServiceFactory', 'create' ]
         arguments:
+            - '@service_container'
             - 'orcid'
             - 'ORCID'
             - '/images/orcid.png'
-            - |
-              <span class="service">ORCID</span> is a nonproprietary alphanumeric code to uniquely identify scientific
-              and other academic authors. This addresses the problem that a particular author's contributions to the
-              scientific literature or publications in the humanities can be hard to recognize as most personal names
-              are not unique, they can change (such as with marriage), have cultural differences in name order,
-              contain inconsistent use of first-name abbreviations and employ different writing systems.
             - 'orcid_authorize'
             - 'orcid_disconnect'
             - @app.user

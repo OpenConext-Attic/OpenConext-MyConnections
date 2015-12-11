@@ -108,6 +108,7 @@ div.header {
   .switch-candy label {
     color: $blue;
     text-shadow: none;
+    cursor: pointer;
   }
 
   .switch-candy input:checked + label {

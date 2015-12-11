@@ -303,7 +303,8 @@ div.header {
     color: #4db2cf; }
   div.header .switch-candy label {
     color: #4db2cf;
-    text-shadow: none; }
+    text-shadow: none;
+    cursor: pointer; }
   div.header .switch-candy input:checked + label {
     color: #fff;
     text-shadow: none;
