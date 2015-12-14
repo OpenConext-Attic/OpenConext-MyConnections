@@ -28,7 +28,7 @@ class User extends NamespacedAttributeBag
     {
         $name = $this->get('displayName', NULL);
         if (NULL === $name) {
-            $name = $this->get('eduPPN', NULL);
+            $name = $this->getUsername();
         }
         return $name;
     }
@@ -40,7 +40,7 @@ class User extends NamespacedAttributeBag
     {
         return hash(
             'sha512',
-            $this->get('eduPPN')
+            $this->getUsername()
         );
     }
 

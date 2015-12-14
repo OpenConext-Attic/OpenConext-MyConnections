@@ -47,18 +47,24 @@ class RestController extends FOSRestController
      *
      * @return array
      *
-     * @throws NotFoundHttpException when user not exist
+     * @throws NotFoundHttpException when no connections found
      */
     public function getConnectionsAction(Request $request, $uid)
     {
         /** @var Connection $orcid */
         $connections = $this->getDoctrine()
             ->getRepository('AppBundle:Connection')
-            ->findAll([ 'uid' => $uid ]);
+            ->findBy(
+                [
+                    'uid' => $uid
+                ]
+            );
 
         if (!$connections) {
             throw new NotFoundHttpException(
-                'User with id: ' . $uid . ' not found'
+                'No connections with uid: ' .
+                $uid .
+                ' found'
             );
         }
 
@@ -84,6 +90,7 @@ class RestController extends FOSRestController
     public function postConnectionAction(Request $request)
     {
         $connection = new Connection();
+        $connection->setEstablishedAt(new \DateTime());
 
         $form = $this->createForm(new ConnectionType(), $connection);
         $form->submit($request);
@@ -105,7 +112,7 @@ class RestController extends FOSRestController
                     );
 
                 return $this->routeRedirectView(
-                    'get_connection',
+                    'get_connections',
                     [
                         'uid' => $connection->getUid()
                     ]
@@ -145,7 +152,7 @@ class RestController extends FOSRestController
      * @param $service
      * @return array
      */
-    public function deleteConnectionAction(Request $request, $uid, $service) {
+    public function deleteConnectionServiceAction(Request $request, $uid, $service) {
 
         /** @var Connection $orcid */
         $connection = $this->getDoctrine()
@@ -177,6 +184,12 @@ class RestController extends FOSRestController
                 ' and service ' .
                 $connection->getService()
             );
-        return $this->routeRedirectView('get_connections');
+
+        return $this->routeRedirectView(
+            'get_connections',
+            [
+                'uid' => $uid
+            ]
+        );
     }
 }

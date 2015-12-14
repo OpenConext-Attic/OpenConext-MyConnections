@@ -58,34 +58,37 @@ class OrcidController extends Controller
         // Did we get an Oauth token?
         $code = $request->get('code', NULL);
         if (NULL === $code || empty($code)) {
-            $this->get('logger')
-                ->addError(
-                  'Did not get OAuth token from authorize endpoint.'
-                );
+            $this->get('logger')->addError('Did not get OAuth token from authorize endpoint.');
             return $this->redirectToRoute('auth_error');
         }
 
         // Request for authorization code
         $token_endpoint = $this->getParameter('orcid_token_endpoint');
-        $form_params = [
-            'client_id' => $this->getParameter('orcid_client_id'),
-            'client_secret' => $this->getParameter('orcid_client_secret'),
-            'grant_type' => 'authorization_code',
-            'code' => $request->get('code'),
-            'redirect_uri' => $this->generateUrl('orcid_consume', [], true)
-        ];
+        $form_params =
+            [
+                'client_id' => $this->getParameter('orcid_client_id'),
+                'client_secret' => $this->getParameter('orcid_client_secret'),
+                'grant_type' => 'authorization_code',
+                'code' => $request->get('code'),
+                'redirect_uri' => $this->generateUrl('orcid_consume', [], true)
+            ];
 
         $client = $this->get('app.guzzle');
-        $response = $client->request('POST', $token_endpoint, [
-            'form_params' => $form_params,
-            'headers' => [ 'Accept' => 'application/json' ]
-        ]);
+        $response = $client->request(
+            'POST',
+            $token_endpoint,
+            [
+                'form_params' => $form_params,
+                'headers' => [ 'Accept' => 'application/json' ]
+            ]
+        );
 
         // Authentication error?
         if ($response->getStatusCode() !== 200) {
             $this->get('logger')
                 ->addError(
-                    'Received responsecode ' . $response->getStatusCode() .
+                    'Received responsecode ' .
+                    $response->getStatusCode() .
                     ' from oricid token endpoint'
                 );
             return $this->redirectToRoute('auth_error');
@@ -96,9 +99,7 @@ class OrcidController extends Controller
         $connection = new Connection();
         $connection->setService('orcid');
         $connection->setCuid($data->orcid);
-        $connection->setUid(
-            $this->get('app.user')
-                ->getUid());
+        $connection->setUid($this->get('app.user')->getUid());
         $connection->setEstablishedAt(new \DateTime());
 
         try {

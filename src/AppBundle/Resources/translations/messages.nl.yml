@@ -16,7 +16,7 @@ login: Inloggen
 login_msg: Log aub in op Open-Conext om verder te gaan.
 login_to_openconext: Login bij Open-Conext
 no_connections_yet: Je hebt nog geen connecties. Waarom moet je deze maken?
-no_connections_yet_desc: Because when you do, the attribute authority is used by OpenConext to enrich your existing attributes with connection. Services connected to OpenConext will be able to use your connections.
+no_connections_yet_desc: Als je deze maakt zal Open-Conext de koppeling beschikbaar stellen en kunnen diensten gebruik maken van jou connectie.
 available_connections: Beschikbare connections
 known_login: Je Open-Conext login is al bekend.
 add_to_openconext: Voeg %s toe aan Open-Conext
