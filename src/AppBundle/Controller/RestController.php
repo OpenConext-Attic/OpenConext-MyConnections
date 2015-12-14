@@ -6,6 +6,7 @@ use AppBundle\Form\ConnectionType;
 
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Util\Codes;
 
 use Doctrine\DBAL\DBALException;
 
@@ -115,14 +116,15 @@ class RestController extends FOSRestController
                     'get_connections',
                     [
                         'uid' => $connection->getUid()
-                    ]
+                    ],
+                    Codes::HTTP_CREATED
                 );
             }
             catch (DBALException $e) {
                 throw new NotAcceptableHttpException($e->getMessage());
             }
         }
-        return $form->getErrors();
+        return [ "form" => $form ];
     }
 
     /**
@@ -143,7 +145,7 @@ class RestController extends FOSRestController
      *      }
      *   },
      *   statusCodes = {
-     *     200 = "Returned when successful",
+     *     201 = "Returned when successful",
      *     404 = "Returned when the user is not found"
      *   }
      * )
@@ -189,7 +191,8 @@ class RestController extends FOSRestController
             'get_connections',
             [
                 'uid' => $uid
-            ]
+            ],
+            Codes::HTTP_ACCEPTED
         );
     }
 }
