@@ -11,6 +11,11 @@ and let SP's use this information.
 * Ansible >=1.9.4
 * Composer
 
+Vagrant plugins:
+    vagrant-hostsupdater (0.0.11)
+    vagrant-share (1.1.4, system)
+    vagrant-vbguest (0.10.1)
+
 # Setup project
 
 Clone this git repository
@@ -37,7 +42,7 @@ Create database schema by running
 
 # Provisioning
 
-## Provsion Centos7 Server
+## Provision Centos7 Server
     cd provision/
     ansible-playbook -i inventory -s provision.yml (mind the -s param)
 
@@ -79,4 +84,3 @@ In order to set this up with a public available Open-Conext IDP change the follo
     saml_remote_idp_entity_id: 'http://dev.idp.org/saml2/idp/metadata.php'
     saml_remote_idp_sso_url: 'http://dev.idp.org/saml2/idp/SSOService.php'
     saml_remote_idp_certificate: MIIDzTCCAr....
-
