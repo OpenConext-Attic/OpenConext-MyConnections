@@ -16,9 +16,10 @@
         - { path: "{{ projectdir }}", owner: "{{ ansible_ssh_user }}", recurse: "no", mode: "0755" }
         - { path: "{{ projectdir }}/xhprof", owner: "{{ ansible_ssh_user }}", recurse: "no", mode: "0755" }
         - { path: "{{ projectdir }}/releases", owner: "{{ ansible_ssh_user }}", recurse: "no", mode: "0755" }
-        - { path: "{{ projectdir }}/files", owner: "{{ ansible_ssh_user }}", recurse: "yes", mode: "0777" }
-        - { path: "{{ projectdir }}/logs", owner: "{{ ansible_ssh_user }}", recurse: "yes", mode: "0777" }
-        - { path: "{{ projectdir }}/cache", owner: "{{ ansible_ssh_user }}", recurse: "yes", mode: "0777" }
+        - { path: "{{ projectdir }}/files", owner: "{{ ansible_ssh_user }}", recurse: "yes", mode: "0755" }
+        - { path: "{{ projectdir }}/logs", owner: "{{ ansible_ssh_user }}", recurse: "yes", mode: "0755" }
+        - { path: "{{ projectdir }}/cache", owner: "{{ ansible_ssh_user }}", recurse: "yes", mode: "0755" }
+        - { path: "{{ projectdir }}/conf", owner: "{{ ansible_ssh_user }}", recurse: "yes", mode: "0755" }
 
     - name: Checkout code
       git:
@@ -35,12 +36,21 @@
         - { path: "{{ projectdir }}/releases/{{ version }}-{{ postfix }}/app/cache" }
         - { path: "{{ projectdir }}/releases/{{ version }}-{{ postfix }}/app/logs" }
 
+    - name: Parameters.yml
+      command: touch "{{ projectdir }}/conf/parameters.yml" creates="{{ projectdir }}/conf/parameters.yml"
+
     - name: Setup symlinks
       become: yes
       file: path="{{ item.path }}" src="{{ item.src }}" state=link force=yes owner="{{ php_user }}"
       with_items:
         - { path: "{{ projectdir }}/releases/{{ version }}-{{ postfix }}/app/cache", src: "{{ projectdir }}/cache" }
         - { path: "{{ projectdir }}/releases/{{ version }}-{{ postfix }}/app/logs", src: "{{ projectdir }}/logs" }
+        - { path: "{{ projectdir }}/releases/{{ version }}-{{ postfix }}/app/config/parameters.yml", src: "{{ projectdir }}/conf/parameters.yml" }
+
+    - name: Remove app_dev.php
+      file: path="{{ item.path }}" state=absent force=yes
+      with_items:
+        - { path: "{{ projectdir }}/releases/{{ version }}-{{ postfix }}/web/app_dev.php" }
 
     - name: Composer install
       composer:
@@ -48,17 +58,10 @@
         no_dev: no
         working_dir: "{{ projectdir }}/releases/{{ version }}-{{ postfix }}"
 
-    - name: Make writeables writable
-      become: yes
-      file: path={{ item.path }} owner={{ php_user }} recurse=yes mode="0777" state=directory force=yes
-      with_items:
-        - { path: "{{ projectdir }}/logs" }
-        - { path: "{{ projectdir }}/cache" }
-
     - name: Link deployment
       file: path="{{ item.path }}" src="{{ item.src }}" state=link force=yes owner="{{ ansible_ssh_user }}"
       with_items:
         - { path: "{{ projectdir }}/latest", src: "{{ projectdir }}/releases/{{ version }}-{{ postfix }}" }
 
     - name: Update database schema
-      command: ./console doctrine:schema:update --force chdir="{{ projectdir }}/latest/app"
+      command: ./console doctrine:schema:update --env=prod --force chdir="{{ projectdir }}/latest/app"
