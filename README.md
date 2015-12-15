@@ -12,6 +12,7 @@ and let SP's use this information.
 * Composer
 
 Vagrant plugins:
+
     vagrant-hostsupdater (1.0.1)
     vagrant-share (1.1.5, system)
     vagrant-vbguest (0.11.0)
@@ -84,3 +85,11 @@ In order to set this up with a public available Open-Conext IDP change the follo
     saml_remote_idp_entity_id: 'http://dev.idp.org/saml2/idp/metadata.php'
     saml_remote_idp_sso_url: 'http://dev.idp.org/saml2/idp/SSOService.php'
     saml_remote_idp_certificate: MIIDzTCCAr....
+
+# Running the tests
+In order to run the test you have to logon the vagrant box first (due to dbaccess).
+
+    vagrant ssh vagrant-app
+    cd /vagrant/app
+    ../bin/phpunit
+
