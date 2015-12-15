@@ -12,9 +12,9 @@ and let SP's use this information.
 * Composer
 
 Vagrant plugins:
-    vagrant-hostsupdater (0.0.11)
-    vagrant-share (1.1.4, system)
-    vagrant-vbguest (0.10.1)
+    vagrant-hostsupdater (1.0.1)
+    vagrant-share (1.1.5, system)
+    vagrant-vbguest (0.11.0)
 
 # Setup project
 
