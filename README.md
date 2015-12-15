@@ -72,6 +72,9 @@ You can find the IDP setup in the folder `idp-test/`
 
  - http://dev.idp.org
 
+## My Connections REST API
+See the file [api_doc.md](api_doc.md)
+
 # Mailhog
 In order to view whats in the mailqueue go to: http://dev.myconnections.org:8025
 See: https://github.com/mailhog/MailHog for additional documentation about Mailhog.
