@@ -1,0 +1,8 @@
+---
+# file: group_vars/all
+php_group: martin
+php_user: martin
+servername: "145.100.181.31"
+sshkey: false
+remote_user: martin
+docroot: "/var/www/{{ sitename }}/latest/web"

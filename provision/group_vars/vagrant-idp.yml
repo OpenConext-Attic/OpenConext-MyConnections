@@ -3,7 +3,10 @@
 php_group: vagrant
 php_user: vagrant
 timezone: "Europe/Amsterdam"
-xdebug: true,
+xdebug_enable: true
+xhprof_enable: true
+ntp_enable: true
+mailhog_enable: true
 servername: "dev.idp.org"
 basedir: "/vagrant"
 sshkey: true

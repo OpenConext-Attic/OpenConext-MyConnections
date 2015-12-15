@@ -3,10 +3,14 @@
 php_group: www-data
 php_user: www-data
 timezone: "Europe/Amsterdam"
-xdebug: false,
+xdebug_enable: false
+xhprof_enable: false
+ntp_enable: false
+mailhog_enable: false
 servername: "www.myconnections.org"
 basedir: "/var/www"
 sshkey: true
+git_repo: git@github.com:mroest/OpenConext-MyConnections.git
 sitename: "myconnections"
 basedir: "/var/www"
 docroot: "/var/www/{{ sitename }}/web"

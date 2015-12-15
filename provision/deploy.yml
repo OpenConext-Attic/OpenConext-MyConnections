@@ -1,0 +1,39 @@
+---
+- name: Deploy app
+  hosts: all
+  vars:
+    postfix: "{{ ansible_date_time.epoch }}"
+  vars_prompt:
+    - name: version
+      prompt: "Enter the version you want to deploy"
+      private: no
+
+  tasks:
+    - name: Setup files dirs
+      become: yes
+      file: path={{ item.path }} owner={{ item.owner }} recurse={{ item.recurse }} mode={{ item.mode }} state=directory force=yes
+      with_items:
+        - { path: "{{ projectdir }}", owner: "{{ ansible_ssh_user }}", recurse: "no", mode: "0755" }
+        - { path: "{{ projectdir }}/xhprof", owner: "{{ ansible_ssh_user }}", recurse: "no", mode: "0755" }
+        - { path: "{{ projectdir }}/releases", owner: "{{ ansible_ssh_user }}", recurse: "no", mode: "0755" }
+        - { path: "{{ projectdir }}/files", owner: "{{ ansible_ssh_user}}", recurse: "yes", mode: "0777" }
+
+    - name: Checkout code
+      git:
+        update=yes
+        accept_hostkey=yes
+        ssh_opts="-o StrictHostKeyChecking=no"
+        repo="{{ git_repo }}"
+        dest="{{ projectdir }}/releases/{{ version }}-{{ postfix }}"
+        version="{{ version }}"
+
+    - name: Setup symlinks
+      file: path="{{ item.path }}" src="{{ item.src }}" state=link force=yes owner="{{ ansible_ssh_user }}"
+      with_items:
+        - { path: "{{ projectdir }}/latest", src: "{{ projectdir }}/releases/{{ version }}-{{ postfix }}" }
+
+    - name: Composer install
+      composer:
+        command: "install"
+        no_dev: no
+        working_dir: "{{ projectdir}}/latest/"
