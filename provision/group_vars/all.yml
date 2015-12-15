@@ -1,7 +1,7 @@
 ---
 # file: group_vars/all
-php_group: www-data
-php_user: www-data
+php_group: nginx
+php_user: nginx
 timezone: "Europe/Amsterdam"
 xdebug_enable: false
 xhprof_enable: false
