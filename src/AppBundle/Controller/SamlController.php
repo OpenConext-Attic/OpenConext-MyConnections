@@ -69,20 +69,15 @@ class SamlController extends Controller
             ->getAttributeSet();
 
 
-        try {
-            $nameId = $assertion->getNameId();
-            $displayName = $this->getAttribute(
-                $aSet,
-                $this->get('saml.attribute.displayname')
-            );
-            $eduPPN = $this->getAttribute(
-                $aSet,
-                $this->get('saml.attribute.edupersonprincipalname')
-            );
-        } catch (Exception $e)
-        {
-            throw new AuthenticationException('Error in retrieving attributes');
-        }
+        $nameId = $assertion->getNameId();
+        $displayName = $this->getAttribute(
+            $aSet,
+            $this->get('saml.attribute.displayname')
+        );
+        $eduPPN = $this->getAttribute(
+            $aSet,
+            $this->get('saml.attribute.edupersonprincipalname')
+        );
 
         // Set user info.
         $this->user->set('nameId', $nameId);
@@ -114,6 +109,7 @@ class SamlController extends Controller
         {
             throw new \Exception('Attribute not found.');
         }
-        return $attributeSet->getAttributeByDefinition($attributeDefinition)->getValue();
+        $value =  $attributeSet->getAttributeByDefinition($attributeDefinition)->getValue();
+        return reset($value);
     }
 }

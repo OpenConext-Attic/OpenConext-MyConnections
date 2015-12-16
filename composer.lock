@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0450dd6dea3b874d86d29f26b7fa56be",
-    "content-hash": "2fd5ecd9d3bfd4a3c087ea9d2a36f0cd",
+    "hash": "15b3d2f86c377e3aae3b17c87fdb08f3",
+    "content-hash": "103fed03015ffdc0e78f401d5811a04b",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2527,16 +2527,16 @@
         },
         {
             "name": "surfnet/stepup-saml-bundle",
-            "version": "1.6.0",
+            "version": "dev-feature/remove-attribute-multiplicity",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SURFnet/Stepup-saml-bundle.git",
-                "reference": "520da4a347adff9d6daa7ad96078b1ba8b085b4e"
+                "reference": "adb48333cdb3bbcdb1752115ab0aa171b46ebf94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SURFnet/Stepup-saml-bundle/zipball/520da4a347adff9d6daa7ad96078b1ba8b085b4e",
-                "reference": "520da4a347adff9d6daa7ad96078b1ba8b085b4e",
+                "url": "https://api.github.com/repos/SURFnet/Stepup-saml-bundle/zipball/adb48333cdb3bbcdb1752115ab0aa171b46ebf94",
+                "reference": "adb48333cdb3bbcdb1752115ab0aa171b46ebf94",
                 "shasum": ""
             },
             "require": {
@@ -2571,7 +2571,7 @@
                 "stepup",
                 "surfnet"
             ],
-            "time": "2015-12-04 11:18:05"
+            "time": "2015-12-15 20:29:55"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -5065,7 +5065,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "surfnet/stepup-saml-bundle": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
