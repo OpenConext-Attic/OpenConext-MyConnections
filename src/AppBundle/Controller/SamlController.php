@@ -79,6 +79,14 @@ class SamlController extends Controller
             $this->get('saml.attribute.edupersonprincipalname')
         );
 
+        if (empty($eduPPN)) {
+            $this->get('logger')
+                ->addError(
+                    'Required attribute eduPPN is empty! Unable to proceed'
+                );
+            throw new AuthenticationException('Required eduPPN attribute is empty!');
+        }
+
         // Set user info.
         $this->user->set('nameId', $nameId);
         $this->user->set('eduPPN', $eduPPN);
