@@ -138,6 +138,15 @@ class OrcidController extends Controller
                 ]
             );
 
+        if (NULL === $connection) {
+            $this->get('logger')
+                ->addError(
+                    'Unable to disconnect. No connection found for user: ' .
+                    $this->get('app.user')->getUid()
+                );
+            return $this->redirectToRoute('index');
+        }
+
         try {
             $em = $this->getDoctrine()->getManager();
             $em->remove($connection);
