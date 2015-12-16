@@ -30,7 +30,7 @@ class DefaultController extends Controller
 
         $connected = $this->getDoctrine()
             ->getRepository('AppBundle:Connection')
-            ->findAll(
+            ->findBy(
                 [
                     'uid' => $user->getUid()
                 ]
