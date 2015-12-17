@@ -1,0 +1,13 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: mroest
+  description: Shibboleth's RPM repository for CentOS7.
+  min_ansible_version: 1.4
+  platforms:
+  - name: Centos
+    versions:
+    - all
+  categories:
+    - packaging

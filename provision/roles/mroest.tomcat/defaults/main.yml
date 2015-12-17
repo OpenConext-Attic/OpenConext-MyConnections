@@ -1,0 +1,8 @@
+---
+tomcat_packages:
+  - tomcat
+  - tomcat-webapps
+
+tomcat_server_port: 8005
+tomcat_hostname: localhost
+tomcat_java_opts: "-Xminf0.1 -Xmaxf0.3 -Xmx512m"

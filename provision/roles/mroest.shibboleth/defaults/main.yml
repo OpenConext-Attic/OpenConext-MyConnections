@@ -1,0 +1,5 @@
+---
+shibboleth_repo: "security_shibboleth"
+shibboleth_packages:
+  - curl-openssl
+  - shibboleth

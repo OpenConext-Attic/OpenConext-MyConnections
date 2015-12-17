@@ -1,0 +1,22 @@
+---
+- name: Install packages
+  yum: "name={{ item }} state=installed"
+  with_items: tomcat_packages
+
+- name: Copy tomcat server.xml.
+  template:
+    src: server.xml.j2
+    dest: /etc/tomcat/server.xml
+    owner: tomcat
+    group: tomcat
+    mode: 0664
+  notify: restart tomcat
+
+- name: Copy tomcat.conf.
+  template:
+    src: tomcat.conf.j2
+    dest: /etc/tomcat/tomcat.conf
+    owner: tomcat
+    group: tomcat
+    mode: 0664
+  notify: restart tomcat

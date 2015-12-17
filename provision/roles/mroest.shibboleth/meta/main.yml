@@ -1,0 +1,15 @@
+---
+dependencies:
+  - { role: geerlingguy.java }
+  - { role: mroest.repo-shibboleth }
+
+galaxy_info:
+  author: mroest
+  description: Apache Shibboleth for CentOs7
+  min_ansible_version: 1.4
+  platforms:
+  - name: Centos
+    versions:
+    - 7
+  categories:
+    - development

@@ -1,0 +1,14 @@
+---
+dependencies:
+  - { role: geerlingguy.java }
+
+galaxy_info:
+  author: mroest
+  description: Apache Tomcat for CentOs7
+  min_ansible_version: 1.4
+  platforms:
+  - name: Centos
+    versions:
+    - 7
+  categories:
+    - development

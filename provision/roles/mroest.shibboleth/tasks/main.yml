@@ -1,0 +1,4 @@
+---
+- name: Install packages
+  yum: "name={{ item }} state=installed enablerepo={{ shibboleth_repo }}"
+  with_items: shibboleth_packages
