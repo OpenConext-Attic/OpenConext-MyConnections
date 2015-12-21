@@ -1,0 +1,41 @@
+language: php
+sudo: false
+
+php:
+  - 5.6
+  - 7.0
+
+matrix:
+  allow_failures:
+    - php: 7.0
+
+env:
+  global:
+    - SYMFONY_ENV=test
+    - DATABASE='myconnections'
+    - DB_USERNAME='root'
+    - DB_ENCODE='utf8'
+    - CI_ENVIRONMENT=1
+
+mysql:
+  database: $DATABASE
+  username: $DB_USERNAME
+  encoding: $DB_ENCODE
+
+cache:
+  directories:
+    - ~/.composer
+
+before_script:
+  - phpenv config-add .travis.php.ini
+  - composer self-update
+  - composer install --prefer-dist
+
+script:
+  - app/console doctrine:database:create
+  - cd app/;../bin/phpunit
+
+branches:
+  only:
+    - master
+    - develop
