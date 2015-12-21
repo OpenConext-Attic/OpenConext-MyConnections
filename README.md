@@ -54,9 +54,9 @@ Create database schema by running
 It will ask you for a release version. Simply enter a branch/tag name. (ie. master or release-0.4).
 
 ## Updating your Ansible roles
-In order to update the ansible galaxy roles there is `roles.yml` file. To update run:
+In order to update the ansible galaxy roles there is `requirements.yml` file. To update run:
 
-    ansible-galaxy install -r roles.yml --force
+    ansible-galaxy install -r requirements.yml --force
 
 # Accessing the box
 
