@@ -75,13 +75,30 @@ You can find the IDP setup in the folder `idp-test/`
 ## My Connections REST API
 See the file [api_doc.md](api_doc.md)
 
+# Adding a service (Like ORCID) to the App.
+In order to add a service like ORCID to the app you have to the following.
+
+## Add controller for linking
+See for example the ORCID controller. It enables a number of endpoints to interface with the ORCID.
+You will have to change this based on the needs of your service.
+
+## Update App routes
+Add the controller to the `Resources/config/routing.yml` and enable the routes.
+
+## Configure the service
+Add a service to `Resources/config/services.yml` like `app.service.orcid`.
+You can use the servicefactory to create the service.
+
+## Add service to the repository
+Add your service to the repository by adding a addConnection() call to the repository service `app.service.repository`
+
 # Mailhog
 In order to view whats in the mailqueue go to: http://dev.myconnections.org:8025
 See: https://github.com/mailhog/MailHog for additional documentation about Mailhog.
 
 PS. We dont send email so there shouldn't be any mail there.. :)
 
-# Setup public available OpenConext IDP
+# Setup with public available OpenConext IDP
 
 In order to set this up with a public available Open-Conext IDP change the following params in `app/config/parameter.yml`
 
