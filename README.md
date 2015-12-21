@@ -1,5 +1,7 @@
 # OpenConext My Connections
 
+[![Build Status](https://travis-ci.org/SURFnet/OpenConext-MyConnections.svg)](https://travis-ci.org/SURFnet/OpenConext-MyConnections)
+
 Documentation on this project is found at: https://wiki.surfnet.nl/display/P3GFeI2015/ORCID+voor+SURFconext
 In short this will allow users to enrich their Open-Conext userprofile with a service like ORCID http://orcid.org
 and let SP's use this information.
@@ -110,6 +112,4 @@ In order to set this up with a public available Open-Conext IDP change the follo
 In order to run the test you have to logon the vagrant box first (due to dbaccess).
 
     vagrant ssh vagrant-app
-    cd /vagrant/app
-    ../bin/phpunit
-
+    ant

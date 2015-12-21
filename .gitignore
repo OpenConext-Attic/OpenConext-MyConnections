@@ -14,3 +14,4 @@
 old/*
 web/node_modules/*
 .vagrant
+cache.properties
