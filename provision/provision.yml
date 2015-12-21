@@ -94,6 +94,9 @@
     - name: Perform system update
       yum: name=* state=latest update_cache=yes enablerepo="remi,remi-php56,epel"
 
+    - name: Install Apache Ant
+      yum: name=ant state=latest
+
     - name: Copy SSH Pub key
       action: authorized_key user={{ ansible_ssh_user }} key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
       when: sshkey
