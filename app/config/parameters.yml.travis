@@ -1,0 +1,26 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: myconnections
+    database_user: root
+    database_password: ~
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: 1d5e345773d9c7b67373c091e700a6560c97b1a5
+    saml_sp_publickey: ../vendor/surfnet/stepup-saml-bundle/src/Resources/keys/development_publickey.cer
+    saml_sp_privatekey: ../vendor/surfnet/stepup-saml-bundle/src/Resources/keys/development_privatekey.pem
+    saml_metadata_publickey: ../vendor/surfnet/stepup-saml-bundle/src/Resources/keys/development_publickey.cer
+    saml_metadata_privatekey: ../vendor/surfnet/stepup-saml-bundle/src/Resources/keys/development_privatekey.pem
+    saml_remote_idp_entity_id: 'http://dev.idp.org/saml2/idp/metadata.php'
+    saml_remote_idp_sso_url: 'http://dev.idp.org/saml2/idp/SSOService.php'
+    saml_remote_idp_certificate: MIIDzTCCArWgAwIBAgIJAN1EtEOQiWIsMA0GCSqGSIb3DQEBCwUAMH0xCzAJBgNVBAYTAk5MMRAwDgYDVQQIDAdVdHJlY2h0MRAwDgYDVQQHDAdVdHJlY2h0MQ0wCwYDVQQKDARURVNUMQ0wCwYDVQQLDARURVNUMQ0wCwYDVQQDDARURVNUMR0wGwYJKoZIhvcNAQkBFg5URVNUQFRFU1QuVEVTVDAeFw0xNDExMDMwOTU1MTdaFw0xNDEyMDMwOTU1MTdaMH0xCzAJBgNVBAYTAk5MMRAwDgYDVQQIDAdVdHJlY2h0MRAwDgYDVQQHDAdVdHJlY2h0MQ0wCwYDVQQKDARURVNUMQ0wCwYDVQQLDARURVNUMQ0wCwYDVQQDDARURVNUMR0wGwYJKoZIhvcNAQkBFg5URVNUQFRFU1QuVEVTVDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALtd/946EREbvIYN+cc6zFtcCv1TEHuhYsL5lCIkkDdkDzlnkxvCkoj4bf5p5uE7SadPaV6DAKRhqyfNxtZVs9v2DWImxD5lo9/0U2PSd3Wc9uxJkhpOIDgZaHV4jiGChjgVWnyr65hNc6KZuP7bSlKangXcd/VTRx9LcUjjAu8BbyAV7h4DtfcFAN5h0wXavFXynerPTLaf663xk0WPMTASuFOePonYo4+fR6Fx9Jehucw+U6PD+VWvFoUVYqpR4cbp3ZHhxvVmf1FdjwVjtxexRwIp81114gDdeSDG9zZYLPsGIERrvweTcAKNAwtz/43jkbW2tUn2piKYmyHcAlcCAwEAAaNQME4wHQYDVR0OBBYEFJy/P2Rt3MzA9MXtFMkO031PmRSdMB8GA1UdIwQYMBaAFJy/P2Rt3MzA9MXtFMkO031PmRSdMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAG7tnfMrBb5CuXAe6YRbEolpUdyH6yROIePIEME1aV4tpuVaogFQelRTZ/SQxyGslbjlHVaSV9Oztxh63eidnQrhecrRNyqachy9l4Y3yeaB6c4076gaN9n1+EbsSOmFQrKicLUvCls7t0T95xz6IJ2J4Y+RqYo5AMx4DiCVQgPVKlgTmx61od+lZme+ZuYrz1sPUcnvLzEEhdyJFXZV3SDFklpNueEuhrgoNhbbGmPa+F3/KhNYwCBtdz7bZb9n80dGuiAxTneLTisjhAH6fG9Xw0GQrW367fj6jiiexHNODCcNMjNZ6w/OAbOBVi6mAyE2FKXieqVPtMkC4OWOJnQ=
+    orcid_authorize_endpoint: 'https://orcid.org/oauth/authorize'
+    orcid_client_id: APP-ECVP5NFWPLGNIBAE
+    orcid_client_secret: 4d101285-f73d-4954-a9d5-5bf809c19678
+    orcid_grant_type: authorization_code
+    orcid_token_endpoint: 'https://pub.orcid.org/oauth/token'
+    orcid_redirect_uri: 'https://orcid.demo.openconext.org/redirect-orcid.php'
+    orcid_orcid_back: 'https://orcid.demo.openconext.org/simplesaml/module.php/orcid/orcidback.php'
