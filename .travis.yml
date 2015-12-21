@@ -28,7 +28,6 @@ cache:
 
 before_script:
   - phpenv config-add .travis.php.ini
-  - mysql -e "create database IF NOT EXISTS myconnections;"
   - cp app/config/parameters.yml.travis app/config/parameters.yml
   - composer self-update
   - composer install
