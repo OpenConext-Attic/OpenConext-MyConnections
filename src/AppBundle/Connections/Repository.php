@@ -24,16 +24,16 @@ class Repository
         $this->connections[$service->getMachineName()] = $service;
     }
 
-    public function removeConnection($machine_name)
+    public function removeConnection($machineName)
     {
-        if ($this->hasConnection($machine_name)) {
-            unset($this->connections[$machine_name]);
+        if ($this->hasConnection($machineName)) {
+            unset($this->connections[$machineName]);
         }
     }
 
-    public function hasConnection($machine_name)
+    public function hasConnection($machineName)
     {
-        return array_key_exists($machine_name, $this->connections);
+        return array_key_exists($machineName, $this->connections);
     }
 
     public function getAvailableConnections()

@@ -17,30 +17,30 @@ class ServiceFactory
 
     /**
      * @param Container $container
-     * @param string $machine_name
-     * @param string $display_name
+     * @param string $machineName
+     * @param string $displayName
      * @param string $logo
-     * @param $route_connect
-     * @param $route_disconnect
+     * @param $routeConnect
+     * @param $routeDisconnect
      * @param NamespacedAttributeBag $user
      * @return Service
      */
     public static function create(
         Container $container,
-        $machine_name,
-        $display_name,
+        $machineName,
+        $displayName,
         $logo,
-        $route_connect,
-        $route_disconnect,
+        $routeConnect,
+        $routeDisconnect,
         NamespacedAttributeBag $user) {
 
         $service = $container->get('app.connections.service');
 
-        $service->setMachineName($machine_name);
-        $service->setDisplayName($display_name);
+        $service->setMachineName($machineName);
+        $service->setDisplayName($displayName);
         $service->setLogo($logo);
-        $service->setRouteConnect($route_connect);
-        $service->setRouteDisconnect($route_disconnect);
+        $service->setRouteConnect($routeConnect);
+        $service->setRouteDisconnect($routeDisconnect);
         $service->setUser($user);
 
         return $service;
@@ -49,23 +49,23 @@ class ServiceFactory
     /**
      * @param Service $service
      * @param $username
-     * @param $connection_id
-     * @param $established_at
+     * @param $connectionId
+     * @param $establishedAt
      * @return Connection
      */
     public function createDto(
         Service $service,
         $username,
-        $connection_id,
-        $established_at
+        $connectionId,
+        $establishedAt
     ) {
         $dto = new Connection(
             $service->getDisplayName(),
             $service->getMachineName(),
             $service->getLogo(),
-            $established_at,
+            $establishedAt,
             $username,
-            $connection_id,
+            $connectionId,
             $service->getDescription(),
             $service->getRouteConnect(),
             $service->getRouteDisconnect()
@@ -76,15 +76,15 @@ class ServiceFactory
     /**
      * @param Repository $repository
      * @param string $username
-     * @param string $connection_id
-     * @param string $established_at
+     * @param string $connectionId
+     * @param string $establishedAt
      * @return array
      */
     public function createDtos(
         Repository $repository,
         $username,
-        $connection_id,
-        $established_at
+        $connectionId,
+        $establishedAt
     ) {
         $dtos = [];
         foreach ($repository->getAvailableConnections() as $connection)
@@ -92,8 +92,8 @@ class ServiceFactory
             $dtos[] = $this->createDto(
                 $connection,
                 $username,
-                $connection_id,
-                $established_at
+                $connectionId,
+                $establishedAt
             );
         }
         return $dtos;

@@ -65,7 +65,7 @@ class DefaultController extends Controller
             }
         }
 
-        $available_connections =
+        $availableConnections =
             $this->get('app.service.factory')
                 ->createDtos(
                     $repository,
@@ -79,7 +79,7 @@ class DefaultController extends Controller
             [
                 'name' => $user->getDisplayName(),
                 'connections' => $connections,
-                'available_connections' => $available_connections
+                'available_connections' => $availableConnections
             ]
         );
     }
@@ -95,7 +95,7 @@ class DefaultController extends Controller
     {
         $repository = $this->get('app.service.repository');
 
-        $available_connections =
+        $availableConnections =
             $this->get('app.service.factory')
                 ->createDtos(
                     $repository,
@@ -109,7 +109,7 @@ class DefaultController extends Controller
             [
                 'name' => 'Guest',
                 'connections' => [],
-                'available_connections' => $available_connections
+                'available_connections' => $availableConnections
             ]
         );
     }
@@ -139,7 +139,7 @@ class DefaultController extends Controller
     {
         $repository = $this->get('app.service.repository');
 
-        $available_connections =
+        $availableConnections =
             $this->get('app.service.factory')
                 ->createDtos(
                     $repository,
@@ -153,7 +153,7 @@ class DefaultController extends Controller
             [
                 'name' => 'Guest',
                 'connections' => [],
-                'available_connections' =>  $available_connections
+                'available_connections' =>  $availableConnections
             ]
         );
     }

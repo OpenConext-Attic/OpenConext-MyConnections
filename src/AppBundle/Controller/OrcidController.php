@@ -63,8 +63,8 @@ class OrcidController extends Controller
         }
 
         // Request for authorization code
-        $token_endpoint = $this->getParameter('orcid_token_endpoint');
-        $form_params =
+        $tokenEndpoint = $this->getParameter('orcid_token_endpoint');
+        $formParams =
             [
                 'client_id' => $this->getParameter('orcid_client_id'),
                 'client_secret' => $this->getParameter('orcid_client_secret'),
@@ -76,9 +76,9 @@ class OrcidController extends Controller
         $client = $this->get('app.guzzle');
         $response = $client->request(
             'POST',
-            $token_endpoint,
+            $tokenEndpoint,
             [
-                'form_params' => $form_params,
+                'form_params' => $formParams,
                 'headers' => [ 'Accept' => 'application/json' ]
             ]
         );

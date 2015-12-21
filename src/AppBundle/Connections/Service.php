@@ -16,11 +16,11 @@ class Service
     /**
      * @var string
      */
-    protected $machine_name;
+    protected $machineName;
     /**
      * @var string
      */
-    protected $display_name;
+    protected $displayName;
     /**
      * @var string
      */
@@ -28,11 +28,11 @@ class Service
     /**
      * @var string
      */
-    protected $route_connect;
+    protected $routeConnect;
     /**
      * @var
      */
-    protected $route_disconnect;
+    protected $routeDisconnect;
 
     /**
      * @var NamespacedAttributeBag
@@ -58,15 +58,15 @@ class Service
      */
     public function getMachineName()
     {
-        return $this->machine_name;
+        return $this->machineName;
     }
 
     /**
-     * @param string $machine_name
+     * @param string $machineName
      */
-    public function setMachineName($machine_name)
+    public function setMachineName($machineName)
     {
-        $this->machine_name = $machine_name;
+        $this->machineName = $machineName;
     }
 
     /**
@@ -74,15 +74,15 @@ class Service
      */
     public function getDisplayName()
     {
-        return $this->display_name;
+        return $this->displayName;
     }
 
     /**
-     * @param string $display_name
+     * @param string $displayName
      */
-    public function setDisplayName($display_name)
+    public function setDisplayName($displayName)
     {
-        $this->display_name = $display_name;
+        $this->displayName = $displayName;
     }
 
     /**
@@ -136,15 +136,15 @@ class Service
      */
     public function getRouteDisconnect()
     {
-        return $this->route_disconnect;
+        return $this->routeDisconnect;
     }
 
     /**
-     * @param mixed $route_disconnect
+     * @param mixed $routeDisconnect
      */
-    public function setRouteDisconnect($route_disconnect)
+    public function setRouteDisconnect($routeDisconnect)
     {
-        $this->route_disconnect = $route_disconnect;
+        $this->routeDisconnect = $routeDisconnect;
     }
 
     /**
@@ -152,14 +152,14 @@ class Service
      */
     public function getRouteConnect()
     {
-        return $this->route_connect;
+        return $this->routeConnect;
     }
 
     /**
-     * @param string $route_connect
+     * @param string $routeConnect
      */
-    public function setRouteConnect($route_connect)
+    public function setRouteConnect($routeConnect)
     {
-        $this->route_connect = $route_connect;
+        $this->routeConnect = $routeConnect;
     }
 }
