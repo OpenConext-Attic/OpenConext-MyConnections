@@ -36,14 +36,11 @@ class UserTest extends KernelTestCase
 
     public function testLogin()
     {
-        $this->user->set('eduPPN', null);
+        $this->user->set('nameId', null);
         $this->assertFalse($this->user->isLoggedIn());
 
-        $this->user->set('eduPPN', 'phpunit');
+        $this->user->set('nameId', 'phpunit');
         $this->assertTrue($this->user->isLoggedIn());
-
-        $this->assertEquals('phpunit', $this->user->getDisplayName());
-
     }
 
     public function testUid()
