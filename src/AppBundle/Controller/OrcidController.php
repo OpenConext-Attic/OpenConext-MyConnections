@@ -33,7 +33,7 @@ class OrcidController extends Controller
             'client_id' => $this->getParameter('orcid_client_id'),
             'response_type' => 'code',
             'scope' => '/authenticate',
-            'redirect_uri' => $this->generateUrl('orcid_consume', [] , true)
+            'redirect_uri' => $this->generateUrl('orcid_consume', [], true)
         ];
         $endpoint =
             $this->getParameter('orcid_authorize_endpoint') .
@@ -56,8 +56,8 @@ class OrcidController extends Controller
         }
 
         // Did we get an Oauth token?
-        $code = $request->get('code', NULL);
-        if (NULL === $code || empty($code)) {
+        $code = $request->get('code', null);
+        if (null === $code || empty($code)) {
             $this->get('logger')->addError('Did not get OAuth token from authorize endpoint.');
             return $this->redirectToRoute('auth_error');
         }
@@ -138,7 +138,7 @@ class OrcidController extends Controller
                 ]
             );
 
-        if (NULL === $connection) {
+        if (null === $connection) {
             $this->get('logger')
                 ->addError(
                     'Unable to disconnect. No connection found for user: ' .

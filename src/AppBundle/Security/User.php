@@ -17,7 +17,7 @@ class User extends NamespacedAttributeBag
      */
     public function isLoggedIn()
     {
-        $nameId = $this->get('nameId', NULL);
+        $nameId = $this->get('nameId', null);
         return (!empty($nameId));
     }
 
@@ -26,8 +26,8 @@ class User extends NamespacedAttributeBag
      */
     public function getDisplayName()
     {
-        $name = $this->get('displayName', NULL);
-        if (NULL === $name) {
+        $name = $this->get('displayName', null);
+        if (null === $name) {
             $name = $this->getUsername();
         }
         return $name;

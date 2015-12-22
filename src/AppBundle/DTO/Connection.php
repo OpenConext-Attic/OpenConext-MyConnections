@@ -69,8 +69,7 @@ class Connection
         $description,
         $route_connect,
         $route_disconnect
-    )
-    {
+    ) {
         $this->display_name = $display_name;
         $this->machine_name = $machine_name;
         $this->logo = $logo;

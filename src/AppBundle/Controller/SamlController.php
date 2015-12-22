@@ -113,8 +113,7 @@ class SamlController extends Controller
      */
     private function getAttribute(AttributeSet $attributeSet, AttributeDefinition $attributeDefinition)
     {
-        if (!$attributeSet->containsAttributeDefinedBy($attributeDefinition))
-        {
+        if (!$attributeSet->containsAttributeDefinedBy($attributeDefinition)) {
             throw new \Exception('Attribute not found.');
         }
         $value =  $attributeSet->getAttributeByDefinition($attributeDefinition)->getValue();

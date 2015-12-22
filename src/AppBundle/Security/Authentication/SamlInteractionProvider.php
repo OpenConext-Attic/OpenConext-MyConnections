@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 namespace AppBundle\Security\Authentication;
+
 use AppBundle\Saml\StateHandler;
 use Surfnet\SamlBundle\Entity\IdentityProvider;
 use Surfnet\SamlBundle\Entity\ServiceProvider;
@@ -22,6 +23,7 @@ use Surfnet\SamlBundle\Http\PostBinding;
 use Surfnet\SamlBundle\Http\RedirectBinding;
 use Surfnet\SamlBundle\SAML2\AuthnRequestFactory;
 use Symfony\Component\HttpFoundation\Request;
+
 class SamlInteractionProvider
 {
     /**

@@ -119,8 +119,7 @@ class RestController extends FOSRestController
                     ],
                     Codes::HTTP_CREATED
                 );
-            }
-            catch (DBALException $e) {
+            } catch (DBALException $e) {
                 throw new NotAcceptableHttpException($e->getMessage());
             }
         }
@@ -154,7 +153,8 @@ class RestController extends FOSRestController
      * @param $service
      * @return array
      */
-    public function deleteConnectionServiceAction(Request $request, $uid, $service) {
+    public function deleteConnectionServiceAction(Request $request, $uid, $service)
+    {
 
         /** @var Connection $orcid */
         $connection = $this->getDoctrine()
@@ -172,7 +172,8 @@ class RestController extends FOSRestController
                 $uid .
                 ' and service ' .
                 $service .
-                ' not found');
+                ' not found'
+            );
         }
 
         $em = $this->getDoctrine()->getManager();

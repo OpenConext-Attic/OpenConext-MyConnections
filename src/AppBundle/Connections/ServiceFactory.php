@@ -32,7 +32,8 @@ class ServiceFactory
         $logo,
         $routeConnect,
         $routeDisconnect,
-        NamespacedAttributeBag $user) {
+        NamespacedAttributeBag $user
+    ) {
 
         $service = $container->get('app.connections.service');
 
@@ -87,8 +88,7 @@ class ServiceFactory
         $establishedAt
     ) {
         $dtos = [];
-        foreach ($repository->getAvailableConnections() as $connection)
-        {
+        foreach ($repository->getAvailableConnections() as $connection) {
             $dtos[] = $this->createDto(
                 $connection,
                 $username,

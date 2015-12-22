@@ -5,7 +5,6 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 
-
 /**
  * @ORM\Entity
  * @ORM\Table(

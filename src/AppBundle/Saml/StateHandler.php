@@ -14,8 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 namespace AppBundle\Saml;
+
 use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
+
 class StateHandler
 {
     /**

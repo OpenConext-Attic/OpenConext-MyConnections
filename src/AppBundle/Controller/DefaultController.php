@@ -55,7 +55,7 @@ class DefaultController extends Controller
                     );
                 $connections[] = $dto;
 
-            } catch(\Exception $e) {
+            } catch (\Exception $e) {
                 $this->get('logger')
                     ->addError(
                         'Service ' .
@@ -69,9 +69,9 @@ class DefaultController extends Controller
             $this->get('app.service.factory')
                 ->createDtos(
                     $repository,
-                    NULL,
-                    NULL,
-                    NULL
+                    null,
+                    null,
+                    null
                 );
 
         return $this->render(
@@ -99,9 +99,9 @@ class DefaultController extends Controller
             $this->get('app.service.factory')
                 ->createDtos(
                     $repository,
-                    NULL,
-                    NULL,
-                    NULL
+                    null,
+                    null,
+                    null
                 );
 
         return $this->render(
@@ -143,9 +143,9 @@ class DefaultController extends Controller
             $this->get('app.service.factory')
                 ->createDtos(
                     $repository,
-                    NULL,
-                    NULL,
-                    NULL
+                    null,
+                    null,
+                    null
                 );
 
         return $this->render(

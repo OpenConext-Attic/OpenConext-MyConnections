@@ -15,9 +15,11 @@
  * limitations under the License.
  */
 namespace AppBundle\DependencyInjection\Compiler;
+
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+
 class StateHandlerSessionPass implements CompilerPassInterface
 {
     /**
